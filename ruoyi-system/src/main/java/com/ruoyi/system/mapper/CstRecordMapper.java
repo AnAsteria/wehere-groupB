@@ -29,6 +29,14 @@ public interface CstRecordMapper
     public List<CstRecord> selectCstRecordList(CstRecord cstRecord);
 
     /**
+     * 依据被咨询者的id查询咨询管理列表
+     *
+     * @param userId 咨询管理
+     * @return 咨询管理集合
+     */
+    public List<CstRecord> selectCstRecordListByUserId(Long userId);
+
+    /**
      * 新增咨询管理
      * 
      * @param cstRecord 咨询管理

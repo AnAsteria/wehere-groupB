@@ -29,7 +29,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         </where>
     </select>
     
-    <select id="selectCstRecordById" parameterType="Long" resultMap="CstRecordResult">
+    <select id="selectCstRecordListByUserId" parameterType="Long" resultMap="CstRecordResult">
+        <include refid="selectCstRecordVo"/>
+        <where>
+            <if test="toId != null "> and to_id = #{userId}</if>
+        </where>
+    </select>
+
+    <select id="selectCstRecordListById" parameterType="Long" resultMap="CstRecordResult">
         <include refid="selectCstRecordVo"/>
         where id = #{id}
     </select>

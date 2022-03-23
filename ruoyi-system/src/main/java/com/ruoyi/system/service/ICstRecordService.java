@@ -22,6 +22,14 @@ public interface ICstRecordService
 
     /**
      * 查询咨询管理列表
+     *
+     * @param userId 咨询管理
+     * @return 咨询管理集合
+     */
+    public List<CstRecord> selectCstRecordListByUserId(Long userId);
+
+    /**
+     * 查询咨询管理列表
      * 
      * @param cstRecord 咨询管理
      * @return 咨询管理集合

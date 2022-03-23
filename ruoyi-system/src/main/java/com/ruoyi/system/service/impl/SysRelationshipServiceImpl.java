@@ -33,6 +33,18 @@ public class SysRelationshipServiceImpl implements ISysRelationshipService
     }
 
     /**
+     * 依据督导id查询关系管理列表
+     *
+     * @param supervisorId 关系管理
+     * @return 关系管理
+     */
+    @Override
+    public List<SysRelationship> selectSysRelationshipListBySupervisorId(Long supervisorId)
+    {
+        return sysRelationshipMapper.selectSysRelationshipListBySupervisorId(supervisorId);
+    }
+
+    /**
      * 查询关系管理列表
      * 
      * @param sysRelationship 关系管理
