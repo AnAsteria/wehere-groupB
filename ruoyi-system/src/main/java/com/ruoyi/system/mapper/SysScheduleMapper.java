@@ -1,15 +1,16 @@
-package com.ruoyi.system.service;
+package com.ruoyi.system.mapper;
 
-import java.util.List;
 import com.ruoyi.system.domain.SysSchedule;
 
+import java.util.List;
+
 /**
- * 排班表管理Service接口
+ * 排班表管理Mapper接口
  * 
  * @author Group9
  * @date 2022-03-21
  */
-public interface ISysScheduleService 
+public interface SysScheduleMapper 
 {
     /**
      * 查询排班表管理
@@ -44,18 +45,18 @@ public interface ISysScheduleService
     public int updateSysSchedule(SysSchedule sysSchedule);
 
     /**
-     * 批量删除排班表管理
-     * 
-     * @param ids 需要删除的排班表管理主键集合
-     * @return 结果
-     */
-    public int deleteSysScheduleByIds(Long[] ids);
-
-    /**
-     * 删除排班表管理信息
+     * 删除排班表管理
      * 
      * @param id 排班表管理主键
      * @return 结果
      */
     public int deleteSysScheduleById(Long id);
+
+    /**
+     * 批量删除排班表管理
+     * 
+     * @param ids 需要删除的数据主键集合
+     * @return 结果
+     */
+    public int deleteSysScheduleByIds(Long[] ids);
 }
