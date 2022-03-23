@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.system.mapper.CstRecordMapper">
+    
+    <resultMap type="CstRecord" id="CstRecordResult">
+        <result property="id"    column="id"    />
+        <result property="toId"    column="to_id"    />
+        <result property="fromId"    column="from_id"    />
+        <result property="recordPath"    column="record_path"    />
+        <result property="counts"    column="counts"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="endTime"    column="end_time"    />
+    </resultMap>
+
+    <sql id="selectCstRecordVo">
+        select id, to_id, from_id, record_path, counts, create_time, end_time from cst_record
+    </sql>
+
+    <select id="selectCstRecordList" parameterType="CstRecord" resultMap="CstRecordResult">
+        <include refid="selectCstRecordVo"/>
+        <where>  
+            <if test="toId != null "> and to_id = #{toId}</if>
+            <if test="fromId != null "> and from_id = #{fromId}</if>
+            <if test="recordPath != null  and recordPath != ''"> and record_path = #{recordPath}</if>
+            <if test="counts != null "> and counts = #{counts}</if>
+            <if test="endTime != null "> and end_time = #{endTime}</if>
+        </where>
+    </select>
+    
+    <select id="selectCstRecordById" parameterType="Long" resultMap="CstRecordResult">
+        <include refid="selectCstRecordVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertCstRecord" parameterType="CstRecord">
+        insert into cst_record
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">id,</if>
+            <if test="toId != null">to_id,</if>
+            <if test="fromId != null">from_id,</if>
+            <if test="recordPath != null">record_path,</if>
+            <if test="counts != null">counts,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="endTime != null">end_time,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">#{id},</if>
+            <if test="toId != null">#{toId},</if>
+            <if test="fromId != null">#{fromId},</if>
+            <if test="recordPath != null">#{recordPath},</if>
+            <if test="counts != null">#{counts},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="endTime != null">#{endTime},</if>
+         </trim>
+    </insert>
+
+    <update id="updateCstRecord" parameterType="CstRecord">
+        update cst_record
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="toId != null">to_id = #{toId},</if>
+            <if test="fromId != null">from_id = #{fromId},</if>
+            <if test="recordPath != null">record_path = #{recordPath},</if>
+            <if test="counts != null">counts = #{counts},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="endTime != null">end_time = #{endTime},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteCstRecordById" parameterType="Long">
+        delete from cst_record where id = #{id}
+    </delete>
+
+    <delete id="deleteCstRecordByIds" parameterType="String">
+        delete from cst_record where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>
