@@ -8,6 +8,8 @@ import com.ruoyi.common.enums.BusinessType;
 import com.ruoyi.common.utils.poi.ExcelUtil;
 import com.ruoyi.system.domain.SysRelationship;
 import com.ruoyi.system.service.ISysRelationshipService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -33,6 +35,7 @@ public class SysRelationshipController extends BaseController
      */
     @PreAuthorize("@ss.hasPermi('system:relationship:list')")
     @GetMapping("/list")
+    @ApiOperation("查询关系管理列表")
     public TableDataInfo list(SysRelationship sysRelationship)
     {
         startPage();
@@ -43,6 +46,7 @@ public class SysRelationshipController extends BaseController
     /**
      * 导出关系管理列表
      */
+    @ApiOperation("导出关系管理列表")
     @PreAuthorize("@ss.hasPermi('system:relationship:export')")
     @Log(title = "关系管理", businessType = BusinessType.EXPORT)
     @PostMapping("/export")
@@ -56,6 +60,7 @@ public class SysRelationshipController extends BaseController
     /**
      * 获取关系管理详细信息
      */
+    @ApiOperation("获取关系管理详细信息")
     @PreAuthorize("@ss.hasPermi('system:relationship:query')")
     @GetMapping(value = "/{id}")
     public AjaxResult getInfo(@PathVariable("id") Long id)
@@ -66,6 +71,7 @@ public class SysRelationshipController extends BaseController
     /**
      * 新增关系管理
      */
+    @ApiOperation("新增关系管理")
     @PreAuthorize("@ss.hasPermi('system:relationship:add')")
     @Log(title = "关系管理", businessType = BusinessType.INSERT)
     @PostMapping
@@ -77,6 +83,7 @@ public class SysRelationshipController extends BaseController
     /**
      * 修改关系管理
      */
+    @ApiOperation("修改关系管理")
     @PreAuthorize("@ss.hasPermi('system:relationship:edit')")
     @Log(title = "关系管理", businessType = BusinessType.UPDATE)
     @PutMapping
@@ -88,6 +95,7 @@ public class SysRelationshipController extends BaseController
     /**
      * 删除关系管理
      */
+    @ApiOperation("删除关系管理")
     @PreAuthorize("@ss.hasPermi('system:relationship:remove')")
     @Log(title = "关系管理", businessType = BusinessType.DELETE)
 	@DeleteMapping("/{ids}")
