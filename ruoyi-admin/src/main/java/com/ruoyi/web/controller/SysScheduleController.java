@@ -44,8 +44,10 @@ public class SysScheduleController extends BaseController
     @Autowired
     private ISysUserService sysUserService;
 
-
-    private List<SysSchedule> getSysScheduleList()
+    //获取排班表
+//    private List<SysSchedule> getSysScheduleList(){
+//
+//    }
 
     /**
      * 查询排班表管理列表
@@ -86,7 +88,6 @@ public class SysScheduleController extends BaseController
             System.out.println("查询失败");
             return null;
         }
-
         return getDataTable(list);
     }
 
@@ -99,8 +100,6 @@ public class SysScheduleController extends BaseController
     public void export(HttpServletResponse response, SysSchedule sysSchedule)
     {
         List<SysSchedule> list = sysScheduleService.selectSysScheduleList(sysSchedule);
-
-
         ExcelUtil<SysSchedule> util = new ExcelUtil<SysSchedule>(SysSchedule.class);
         util.exportExcel(response, list, "排班表管理数据");
     }
