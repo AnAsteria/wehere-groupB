@@ -97,7 +97,7 @@ public class CstRecordController extends BaseController
     @ApiOperation("导出咨询管理列表")
     public void export(HttpServletResponse response, CstRecord cstRecord)
     {
-        List<CstRecord> list = cstRecordService.selectCstRecordList(cstRecord);
+        List<CstRecord> list = getCstRecordList(cstRecord);
         ExcelUtil<CstRecord> util = new ExcelUtil<CstRecord>(CstRecord.class);
         util.exportExcel(response, list, "咨询管理数据");
     }
