@@ -7,6 +7,7 @@ import javax.annotation.Resource;
 import javax.imageio.ImageIO;
 import javax.servlet.http.HttpServletResponse;
 import com.ruoyi.common.config.RuoYiConfig;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.FastByteArrayOutputStream;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -42,6 +43,7 @@ public class CaptchaController
      * 生成验证码
      */
     @GetMapping("/captchaImage")
+    @ApiOperation("生成验证码")
     public AjaxResult getCode(HttpServletResponse response) throws IOException
     {
         AjaxResult ajax = AjaxResult.success();

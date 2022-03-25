@@ -1,6 +1,8 @@
 package com.ruoyi.web.controller.system;
 
 import java.io.IOException;
+
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -58,6 +60,7 @@ public class SysProfileController extends BaseController
      */
     @Log(title = "个人信息", businessType = BusinessType.UPDATE)
     @PutMapping
+    @ApiOperation("修改用户")
     public AjaxResult updateProfile(@RequestBody SysUser user)
     {
         LoginUser loginUser = getLoginUser();
@@ -91,6 +94,7 @@ public class SysProfileController extends BaseController
     /**
      * 重置密码
      */
+    @ApiOperation("重置密码")
     @Log(title = "个人信息", businessType = BusinessType.UPDATE)
     @PutMapping("/updatePwd")
     public AjaxResult updatePwd(String oldPassword, String newPassword)
@@ -119,6 +123,7 @@ public class SysProfileController extends BaseController
     /**
      * 头像上传
      */
+    @ApiOperation("头像上传")
     @Log(title = "用户头像", businessType = BusinessType.UPDATE)
     @PostMapping("/avatar")
     public AjaxResult avatar(@RequestParam("avatarfile") MultipartFile file) throws IOException

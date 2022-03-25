@@ -17,6 +17,7 @@ import com.ruoyi.system.service.ISysRelationshipService;
 import com.ruoyi.system.service.ISysRoleService;
 import com.ruoyi.system.service.ISysUserService;
 import com.ruoyi.system.service.impl.SysUserServiceImpl;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -45,19 +46,11 @@ public class CstRecordController extends BaseController
     @Autowired
     private ISysUserService sysUserService;
 
-
-    /**
-     * 查询咨询管理列表
-     */
-    @PreAuthorize("@ss.hasPermi('system:record:list')")
-    @GetMapping("/list")
-    public TableDataInfo list(CstRecord cstRecord)
-    {
+    private List<CstRecord> getCstRecordList(CstRecord cstRecord){
         LoginUser loginUser = SecurityUtils.getLoginUser();
         Long userId = loginUser.getUserId();
         Long deptId = loginUser.getDeptId();
         List<CstRecord> list = null;
-        startPage();
         if(deptId == 100L){
             list = cstRecordService.selectCstRecordList(cstRecord);
         }
@@ -79,10 +72,19 @@ public class CstRecordController extends BaseController
                 list.addAll(cstRecordService.selectCstRecordListByUserId(user.getUserId()));
             }
         }
-        else{
-            System.out.println("查询失败");
-            return null;
-        }
+        return list;
+    }
+
+    /**
+     * 查询咨询管理列表
+     */
+    @PreAuthorize("@ss.hasPermi('system:record:list')")
+    @GetMapping("/list")
+    @ApiOperation("查询咨询管理列表")
+    public TableDataInfo list(CstRecord cstRecord)
+    {
+        startPage();
+        List<CstRecord> list = getCstRecordList(cstRecord);
         return getDataTable(list);
     }
 
@@ -92,9 +94,10 @@ public class CstRecordController extends BaseController
     @PreAuthorize("@ss.hasPermi('system:record:export')")
     @Log(title = "咨询管理", businessType = BusinessType.EXPORT)
     @PostMapping("/export")
+    @ApiOperation("导出咨询管理列表")
     public void export(HttpServletResponse response, CstRecord cstRecord)
     {
-        List<CstRecord> list = cstRecordService.selectCstRecordList(cstRecord);
+        List<CstRecord> list = getCstRecordList(cstRecord);
         ExcelUtil<CstRecord> util = new ExcelUtil<CstRecord>(CstRecord.class);
         util.exportExcel(response, list, "咨询管理数据");
     }
@@ -104,6 +107,7 @@ public class CstRecordController extends BaseController
      */
     @PreAuthorize("@ss.hasPermi('system:record:query')")
     @GetMapping(value = "/{id}")
+    @ApiOperation("获取咨询管理详细信息")
     public AjaxResult getInfo(@PathVariable("id") Long id)
     {
         return AjaxResult.success(cstRecordService.selectCstRecordById(id));
@@ -115,6 +119,7 @@ public class CstRecordController extends BaseController
     @PreAuthorize("@ss.hasPermi('system:record:add')")
     @Log(title = "咨询管理", businessType = BusinessType.INSERT)
     @PostMapping
+    @ApiOperation("新增咨询管理")
     public AjaxResult add(@RequestBody CstRecord cstRecord)
     {
         return toAjax(cstRecordService.insertCstRecord(cstRecord));
@@ -126,6 +131,7 @@ public class CstRecordController extends BaseController
     @PreAuthorize("@ss.hasPermi('system:record:edit')")
     @Log(title = "咨询管理", businessType = BusinessType.UPDATE)
     @PutMapping
+    @ApiOperation("修改咨询管理")
     public AjaxResult edit(@RequestBody CstRecord cstRecord)
     {
         return toAjax(cstRecordService.updateCstRecord(cstRecord));
@@ -137,6 +143,7 @@ public class CstRecordController extends BaseController
     @PreAuthorize("@ss.hasPermi('system:record:remove')")
     @Log(title = "咨询管理", businessType = BusinessType.DELETE)
 	@DeleteMapping("/{ids}")
+    @ApiOperation("删除咨询管理")
     public AjaxResult remove(@PathVariable Long[] ids)
     {
         return toAjax(cstRecordService.deleteCstRecordByIds(ids));
