@@ -2,6 +2,8 @@ package com.ruoyi.web.controller.monitor;
 
 import java.util.List;
 import javax.servlet.http.HttpServletResponse;
+
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -31,6 +33,7 @@ public class SysOperlogController extends BaseController
     @Autowired
     private ISysOperLogService operLogService;
 
+    @ApiOperation("获取日志列表")
     @PreAuthorize("@ss.hasPermi('monitor:operlog:list')")
     @GetMapping("/list")
     public TableDataInfo list(SysOperLog operLog)
@@ -40,6 +43,7 @@ public class SysOperlogController extends BaseController
         return getDataTable(list);
     }
 
+    @ApiOperation("导出日志列表")
     @Log(title = "操作日志", businessType = BusinessType.EXPORT)
     @PreAuthorize("@ss.hasPermi('monitor:operlog:export')")
     @PostMapping("/export")
@@ -50,6 +54,7 @@ public class SysOperlogController extends BaseController
         util.exportExcel(response, list, "操作日志");
     }
 
+    @ApiOperation("移除指定日志")
     @Log(title = "操作日志", businessType = BusinessType.DELETE)
     @PreAuthorize("@ss.hasPermi('monitor:operlog:remove')")
     @DeleteMapping("/{operIds}")
@@ -58,6 +63,7 @@ public class SysOperlogController extends BaseController
         return toAjax(operLogService.deleteOperLogByIds(operIds));
     }
 
+    @ApiOperation("清空日志")
     @Log(title = "操作日志", businessType = BusinessType.CLEAN)
     @PreAuthorize("@ss.hasPermi('monitor:operlog:remove')")
     @DeleteMapping("/clean")

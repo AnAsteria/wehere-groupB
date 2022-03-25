@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
+
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -40,6 +42,7 @@ public class SysUserOnlineController extends BaseController
 
     @PreAuthorize("@ss.hasPermi('monitor:online:list')")
     @GetMapping("/list")
+    @ApiOperation("获取在线用户")
     public TableDataInfo list(String ipaddr, String userName)
     {
         Collection<String> keys = redisCache.keys(Constants.LOGIN_TOKEN_KEY + "*");
@@ -81,6 +84,7 @@ public class SysUserOnlineController extends BaseController
     /**
      * 强退用户
      */
+    @ApiOperation("强退用户")
     @PreAuthorize("@ss.hasPermi('monitor:online:forceLogout')")
     @Log(title = "在线用户", businessType = BusinessType.FORCE)
     @DeleteMapping("/{tokenId}")
