@@ -21,6 +21,14 @@ public interface SysScheduleMapper
     public SysSchedule selectSysScheduleById(Long id);
 
     /**
+     * 依据用户id查询排班表管理
+     *
+     * @param userId 排班表管理主键
+     * @return 排班表管理
+     */
+    public List<SysSchedule> selectSysScheduleListByUserId(Long userId);
+
+    /**
      * 查询排班表管理列表
      * 
      * @param sysSchedule 排班表管理

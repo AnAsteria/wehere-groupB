@@ -36,7 +36,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         </where>
     </select>
 
-    <select id="selectCstRecordListById" parameterType="Long" resultMap="CstRecordResult">
+    <select id="selectCstRecordById" parameterType="Long" resultMap="CstRecordResult">
         <include refid="selectCstRecordVo"/>
         where id = #{id}
     </select>

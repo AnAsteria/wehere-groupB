@@ -26,6 +26,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="day != null "> and day = #{day}</if>
         </where>
     </select>
+
+    <select id="selectSysScheduleListByUserId" parameterType="Long" resultMap="SysScheduleResult">
+        <include refid="selectSysScheduleVo"/>
+        <where>
+            <if test="userId != null "> and user_id = #{userId}</if>
+        </where>
+    </select>
     
     <select id="selectSysScheduleById" parameterType="Long" resultMap="SysScheduleResult">
         <include refid="selectSysScheduleVo"/>
