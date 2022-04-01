@@ -31,7 +31,7 @@ public class TIMClient {
         return SIG_GENERATOR.genUserSig(userId, 3600);
     }
 
-    public <T> ResponseEntity<T> sendRequest(String serviceName, String command, String userIdentifier, JSONObject requestBody, Class<T> responseType) {
+    public static <T> ResponseEntity<T> sendRequest(String serviceName, String command, String userIdentifier, JSONObject requestBody, Class<T> responseType) {
         String identifier = userIdentifier == null ? DEFAULT_ADMIN_ACCOUNT_ID : userIdentifier;
         String userSig = SIG_GENERATOR.genUserSig(identifier, 60);
         String url = String.format("https://console.tim.qq.com/v4/%s/%s?sdkappid=%s&identifier=%s&usersig=%s&random=42&contenttype=json",

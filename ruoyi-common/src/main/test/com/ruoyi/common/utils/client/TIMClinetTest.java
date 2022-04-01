@@ -5,10 +5,9 @@ import org.springframework.http.ResponseEntity;
 
 public class TIMClinetTest {
     public static void main(String[] args) {
-        TIMClient timClient = new TIMClient();
         JSONObject params = new JSONObject();
         params.put("UserID", "test");
-        ResponseEntity<JSONObject> result = timClient.sendRequest("im_open_login_svc", "account_import", null, params, JSONObject.class);
+        ResponseEntity<JSONObject> result = TIMClient.sendRequest("im_open_login_svc", "account_import", null, params, JSONObject.class);
         System.out.println("result = " + result);
     }
 }
