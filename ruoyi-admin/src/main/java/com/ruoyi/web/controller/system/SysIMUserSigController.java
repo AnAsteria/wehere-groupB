@@ -13,7 +13,7 @@ public class SysIMUserSigController {
      * @param userId 登录信息
      * @return 结果
      */
-    @ApiOperation("登录方法")
+    @ApiOperation("获取用户在TIM系统的用户签名")
     @GetMapping("/im/usersig/{userId}")
     public AjaxResult getUserSig(@PathVariable String userId)
     {
