@@ -2,6 +2,8 @@ package com.ruoyi.web.controller;
 
 import java.util.List;
 import javax.servlet.http.HttpServletResponse;
+
+import io.swagger.annotations.ApiOperation;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -37,6 +39,7 @@ public class ImAccountController extends BaseController
     /**
      * 查询IMAccount管理列表
      */
+    @ApiOperation("查询IMAccount管理列表")
     @PreAuthorize("@ss.hasPermi('system:IMAccount:list')")
     @GetMapping("/list")
     public TableDataInfo list(ImAccount imAccount)
@@ -49,6 +52,7 @@ public class ImAccountController extends BaseController
     /**
      * 导出IMAccount管理列表
      */
+    @ApiOperation("导出IMAccount管理列表")
     @PreAuthorize("@ss.hasPermi('system:IMAccount:export')")
     @Log(title = "IMAccount管理", businessType = BusinessType.EXPORT)
     @PostMapping("/export")
@@ -62,6 +66,7 @@ public class ImAccountController extends BaseController
     /**
      * 获取IMAccount管理详细信息
      */
+    @ApiOperation("获取IMAccount管理详细信息")
     @PreAuthorize("@ss.hasPermi('system:IMAccount:query')")
     @GetMapping(value = "/{id}")
     public AjaxResult getInfo(@PathVariable("id") Long id)
@@ -72,6 +77,7 @@ public class ImAccountController extends BaseController
     /**
      * 新增IMAccount管理
      */
+    @ApiOperation("新增IMAccount管理")
     @PreAuthorize("@ss.hasPermi('system:IMAccount:add')")
     @Log(title = "IMAccount管理", businessType = BusinessType.INSERT)
     @PostMapping
@@ -83,6 +89,7 @@ public class ImAccountController extends BaseController
     /**
      * 修改IMAccount管理
      */
+    @ApiOperation("修改IMAccount管理")
     @PreAuthorize("@ss.hasPermi('system:IMAccount:edit')")
     @Log(title = "IMAccount管理", businessType = BusinessType.UPDATE)
     @PutMapping
@@ -94,6 +101,7 @@ public class ImAccountController extends BaseController
     /**
      * 删除IMAccount管理
      */
+    @ApiOperation("删除IMAccount管理")
     @PreAuthorize("@ss.hasPermi('system:IMAccount:remove')")
     @Log(title = "IMAccount管理", businessType = BusinessType.DELETE)
 	@DeleteMapping("/{ids}")

@@ -44,6 +44,26 @@ public class SysRelationshipController extends BaseController
     }
 
     /**
+     * 依据咨询师id查询关系列表
+     */
+    @ApiOperation("依据咨询师id查询关系列表")
+    @PreAuthorize("@ss.hasPermi('system:relationship:select_cid_by_sid')")
+    @GetMapping("/select_by_cid/{sid}")
+    public AjaxResult selectDataBySid(@PathVariable("sid") Long id){
+        return AjaxResult.success(sysRelationshipService.selectSysRelationshipListByConsultantId(id));
+    }
+
+    /**
+     * 依据督导id查询关系列表
+     */
+    @ApiOperation("依据督导id查询关系列表")
+    @PreAuthorize("@ss.hasPermi('system:relationship:select_sid_by_cid')")
+    @GetMapping("/select_by_sid/{cid}")
+    public AjaxResult selectDataByCid(@PathVariable("cid") Long id){
+        return AjaxResult.success(sysRelationshipService.selectSysRelationshipListBySupervisorId(id));
+    }
+
+    /**
      * 导出关系管理列表
      */
     @ApiOperation("导出关系管理列表")
