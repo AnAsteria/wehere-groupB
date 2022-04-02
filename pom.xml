@@ -209,9 +209,6 @@
         <module>ruoyi-quartz</module>
         <module>ruoyi-generator</module>
         <module>ruoyi-common</module>
-        <module>ruoyi-shcedule</module>
-        <module>ruoyi-record</module>
-        <module>ruoyi-relationship</module>
     </modules>
     <packaging>pom</packaging>
 

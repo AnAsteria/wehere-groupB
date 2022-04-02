@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.system.mapper.ImAccountMapper">
+    
+    <resultMap type="ImAccount" id="ImAccountResult">
+        <result property="id"    column="id"    />
+        <result property="userId"    column="user_id"    />
+        <result property="imAccountName"    column="im_account_name"    />
+        <result property="imAccountType"    column="im_account_type"    />
+    </resultMap>
+
+    <sql id="selectImAccountVo">
+        select id, user_id, im_account_name, im_account_type from im_account
+    </sql>
+
+    <select id="selectImAccountList" parameterType="ImAccount" resultMap="ImAccountResult">
+        <include refid="selectImAccountVo"/>
+        <where>  
+            <if test="userId != null "> and user_id = #{userId}</if>
+            <if test="imAccountName != null  and imAccountName != ''"> and im_account_name like concat('%', #{imAccountName}, '%')</if>
+            <if test="imAccountType != null  and imAccountType != ''"> and im_account_type = #{imAccountType}</if>
+        </where>
+    </select>
+    
+    <select id="selectImAccountById" parameterType="Long" resultMap="ImAccountResult">
+        <include refid="selectImAccountVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertImAccount" parameterType="ImAccount" useGeneratedKeys="true" keyProperty="id">
+        insert into im_account
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="userId != null">user_id,</if>
+            <if test="imAccountName != null">im_account_name,</if>
+            <if test="imAccountType != null">im_account_type,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="userId != null">#{userId},</if>
+            <if test="imAccountName != null">#{imAccountName},</if>
+            <if test="imAccountType != null">#{imAccountType},</if>
+         </trim>
+    </insert>
+
+    <update id="updateImAccount" parameterType="ImAccount">
+        update im_account
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="userId != null">user_id = #{userId},</if>
+            <if test="imAccountName != null">im_account_name = #{imAccountName},</if>
+            <if test="imAccountType != null">im_account_type = #{imAccountType},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteImAccountById" parameterType="Long">
+        delete from im_account where id = #{id}
+    </delete>
+
+    <delete id="deleteImAccountByIds" parameterType="String">
+        delete from im_account where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>
