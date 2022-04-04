@@ -1,8 +1,9 @@
 import  tim from './tim'
 import TRTCCalling from 'trtc-calling-js'
+import { SDKAppID } from './api/im/api/usersig'
 
 let options = {
-  SDKAppID: window.genTestUserSig('').SDKAppID,  // 接入时需要将0替换为您的云通信应用的 SDKAppID
+  SDKAppID: SDKAppID,  // 接入时需要将0替换为您的云通信应用的 SDKAppID
   tim: tim,
 }
 

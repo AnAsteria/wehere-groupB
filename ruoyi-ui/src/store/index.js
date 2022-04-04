@@ -12,6 +12,7 @@ import group from './modules/group'
 import groupLive from './modules/groupLive'
 import video from './modules/video'
 import getters from './getters'
+import { Message } from 'element-ui'
 
 Vue.use(Vuex)
 
