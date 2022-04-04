@@ -46,6 +46,7 @@
   import GroupLive from './components/group-live/index'
   import Calling from './components/message/trtc-calling/calling-index'
   import { ACTION } from './utils/trtcCustomMessageMap'
+  import tim from '../../../tim.js'
   export default {
     title: 'TIMSDK DEMO',
     data () {
@@ -89,27 +90,27 @@
     methods: {
       initListener() {
         // 登录成功后会触发 SDK_READY 事件，该事件触发后，可正常使用 SDK 接口
-        this.tim.on(this.TIM.EVENT.SDK_READY, this.onReadyStateUpdate, this)
+        tim.on(this.TIM.EVENT.SDK_READY, this.onReadyStateUpdate, this)
         // SDK NOT READT
-        this.tim.on(this.TIM.EVENT.SDK_NOT_READY, this.onReadyStateUpdate, this)
+        tim.on(this.TIM.EVENT.SDK_NOT_READY, this.onReadyStateUpdate, this)
         // 被踢出
-        this.tim.on(this.TIM.EVENT.KICKED_OUT, this.onKickOut)
+        tim.on(this.TIM.EVENT.KICKED_OUT, this.onKickOut)
         // SDK内部出错
-        this.tim.on(this.TIM.EVENT.ERROR, this.onError)
+        tim.on(this.TIM.EVENT.ERROR, this.onError)
         // 收到新消息
-        this.tim.on(this.TIM.EVENT.MESSAGE_RECEIVED, this.onReceiveMessage)
+        tim.on(this.TIM.EVENT.MESSAGE_RECEIVED, this.onReceiveMessage)
         // 会话列表更新
-        this.tim.on(this.TIM.EVENT.CONVERSATION_LIST_UPDATED, this.onUpdateConversationList)
+        tim.on(this.TIM.EVENT.CONVERSATION_LIST_UPDATED, this.onUpdateConversationList)
         // 群组列表更新
-        this.tim.on(this.TIM.EVENT.GROUP_LIST_UPDATED, this.onUpdateGroupList)
+        tim.on(this.TIM.EVENT.GROUP_LIST_UPDATED, this.onUpdateGroupList)
         // 网络监测
-        this.tim.on(this.TIM.EVENT.NET_STATE_CHANGE, this.onNetStateChange)
+        tim.on(this.TIM.EVENT.NET_STATE_CHANGE, this.onNetStateChange)
         // 已读回执
-        this.tim.on(this.TIM.EVENT.MESSAGE_READ_BY_PEER, this.onMessageReadByPeer)
+        tim.on(this.TIM.EVENT.MESSAGE_READ_BY_PEER, this.onMessageReadByPeer)
         // 黑名单更新
-        this.tim.on(this.TIM.EVENT.FRIEND_LIST_UPDATED, this.onFriendListUpdated)
-        this.tim.on(this.TIM.EVENT.FRIEND_APPLICATION_LIST_UPDATED, this.onFriendApplicationListUpdated)
-        this.tim.on(this.TIM.EVENT.FRIEND_GROUP_LIST_UPDATED, this.onFriendGroupListUpdated)
+        tim.on(this.TIM.EVENT.FRIEND_LIST_UPDATED, this.onFriendListUpdated)
+        tim.on(this.TIM.EVENT.FRIEND_APPLICATION_LIST_UPDATED, this.onFriendApplicationListUpdated)
+        tim.on(this.TIM.EVENT.FRIEND_GROUP_LIST_UPDATED, this.onFriendGroupListUpdated)
       },
       onFriendApplicationListUpdated(data) {
         this.$store.commit('updateApplicationList', data.data.friendApplicationList)

@@ -47,6 +47,8 @@
 <script>
 import { Form, FormItem, Select, Option } from 'element-ui'
 import logo from '../../assets/image/logo.png'
+import tim from '../../../../../tim.js'
+import { getUserSig, SDKAppID } from '../../../../../api/im/api/usersig.js'
 
 export default {
   name: 'Login',
@@ -92,33 +94,41 @@ export default {
     },
     login() {
       this.loading = true
-      this.tim
-        .login({
-          userID: this.form.userID,
-          userSig: window.genTestUserSig(this.form.userID).userSig
-        })
-        .then(() => {
-          this.loading = false
-          this.$store.commit('toggleIsLogin', true)
-          this.$store.commit('startComputeCurrent')
-          this.$store.commit('showMessage', { type: 'success', message: '登录成功' })
-          this.$store.commit({
-            type: 'GET_USER_INFO',
-            userID: this.form.userID,
-            userSig: window.genTestUserSig(this.form.userID).userSig,
-            sdkAppID: window.genTestUserSig('').SDKAppID
-          })
-          this.$store.commit('showMessage', {
-            type: 'success',
-            message: '登录成功'
-          })
-        })
-        .catch(error => {
-          this.loading = false
-          this.$store.commit('showMessage', {
-            message: '登录失败：' + error.message,
-            type: 'error'
-          })
+      getUserSig(this.form.userID)
+        .then((res) => {
+          console.log(res)
+          return res["im-user-sig"]
+        }).then((userSig) => {
+          console.log("UserSig", userSig)
+
+          tim
+            .login({
+              userID: this.form.userID,
+              userSig: userSig
+            })
+            .then(() => {
+              this.loading = false
+              this.$store.commit('toggleIsLogin', true)
+              this.$store.commit('startComputeCurrent')
+              this.$store.commit('showMessage', { type: 'success', message: '登录成功' })
+              this.$store.commit({
+                type: 'GET_USER_INFO',
+                userID: this.form.userID,
+                userSig: userSig,
+                sdkAppID: SDKAppID
+              })
+              this.$store.commit('showMessage', {
+                type: 'success',
+                message: '登录成功'
+              })
+            })
+            .catch(error => {
+              this.loading = false
+              this.$store.commit('showMessage', {
+                message: '登录失败：' + error.message,
+                type: 'error'
+              })
+            })
         })
     },
   }

@@ -15,7 +15,34 @@ import getters from './getters'
 
 Vue.use(Vuex)
 
-const store = new Vuex.Store({
+export default new Vuex.Store({
+  state: {
+    current: Date.now(), // 当前时间
+    intervalID: 0,
+    message: undefined
+  },
+  mutations: {
+    startComputeCurrent(state) {
+      state.intervalID = setInterval(() => {
+        state.current = Date.now()
+      }, 500)
+    },
+    stopComputeCurrent(state) {
+      clearInterval(state.intervalID)
+      state.intervalID = 0
+    },
+    showMessage(state, options) {
+      if (state.message) {
+        state.message.close()
+      }
+      state.message = Message({
+        message: options.message,
+        type: options.type || 'success',
+        duration: options.duration || 2000,
+        offset: 40
+      })
+    }
+  },
   modules: {
     app,
     user,
@@ -29,7 +56,5 @@ const store = new Vuex.Store({
     groupLive,
     video,
   },
-  getters
+  getters,
 })
-
-export default store
