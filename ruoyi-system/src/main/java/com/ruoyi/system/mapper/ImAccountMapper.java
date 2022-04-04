@@ -58,4 +58,12 @@ public interface ImAccountMapper
      * @return 结果
      */
     public int deleteImAccountByIds(Long[] ids);
+
+    /**
+     * 依据UserId删除IMAccount管理
+     *
+     * @param UserId 用户主键
+     * @return 结果
+     */
+    public int deleteImAccountByUserId(Long UserId);
 }
