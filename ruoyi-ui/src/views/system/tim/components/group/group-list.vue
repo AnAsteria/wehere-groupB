@@ -137,28 +137,28 @@ export default {
     display: flex;
     flex-shrink 0
     height 50px
-    border-bottom 1px solid $background-deep-dark
+    border-bottom 1px solid #303841
     padding 10px 10px 10px 20px
     .group-seach-bar
       width 100%
       margin-right 10px
       >>> .el-input
         input
-          color $first
+          color #a5b5c1
           border none
           border-radius 30px
-          background-color $deep-background !important
+          background-color #303841 !important
           &::placeholder
-            color $font-dark
+            color #76828c
         .el-icon-search
-          color $font-dark
+          color #76828c
     button
       float right
       display: inline-block;
       cursor: pointer;
-      background $background-deep-dark
+      background #303841
       border: none
-      color: $font-dark;
+      color: #76828c;
       box-sizing: border-box;
       transition: .3s;
       -moz-user-select: none;
@@ -177,7 +177,7 @@ export default {
       flex-shrink 0
       &:hover
         transform: rotate(360deg);
-        color $light-primary
+        color #5cadff
   .scroll-container
     overflow-y scroll
     flex 1

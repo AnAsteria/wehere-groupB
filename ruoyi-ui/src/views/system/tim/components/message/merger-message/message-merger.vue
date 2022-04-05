@@ -117,7 +117,7 @@
     .merger-conversation-wrapper
         height 54vh
         /*background-color #ffffff*/
-        color $base
+        color #1c2438
         display flex
         .current-conversation
             display: flex;
@@ -138,7 +138,7 @@
             padding: 0 20px;
 
     .footer
-        border-top: 1px solid $border-base;
+        border-top: 1px solid #e7e7e7;
     .show-more {
         text-align: right;
         padding: 10px 20px 0 0;

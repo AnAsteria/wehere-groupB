@@ -22,7 +22,7 @@
         </el-select>
       </el-form-item>
       <!-- 线上版本登录方式 -->
-      <!-- <el-form-item prop="userID">
+      <!--<el-form-item prop="userID">
         <el-input v-model="form.userID" placeholder="请输入用户名" type="text" clearable></el-input>
       </el-form-item>
       <el-form-item prop="password">

@@ -355,8 +355,8 @@
     margin: 0;
     font-family: 'Microsoft YaHei', '微软雅黑', 'MicrosoftJhengHei', 'Lantinghei SC', 'Open Sans', Arial, 'Hiragino Sans GB', 'STHeiti', 'WenQuanYi Micro Hei', SimSun, sans-serif;
     // font-family  "Helvetica Neue", Helvetica, Arial, "PingFang SC", "Hiragino Sans GB", "Heiti SC", "Microsoft YaHei", "WenQuanYi Micro Hei", sans-serif
-    // text-shadow: $regular 0 0 0.05em
-    background-color: $bg;
+    // text-shadow: #495060 0 0 0.05em
+    background-color: #ffffff;
     -ms-scroll-chaining: chained;
     -ms-overflow-style: none;
     -ms-content-zooming: zoom;
@@ -412,8 +412,8 @@
   }
   .chat-wrapper {
     margin-top: 8vh;
-    width: $width;
-    height: $height;
+    width: 80vw;
+    height: 80vh;
     max-width: 1280px;
     box-shadow: 0 11px 20px 0 rgba(0, 0, 0, 0.3);
     .official-link {

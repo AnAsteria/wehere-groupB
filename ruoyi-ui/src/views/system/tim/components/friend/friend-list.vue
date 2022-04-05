@@ -385,7 +385,7 @@ export default {
         text-align: center;
         white-space: nowrap;
         border-radius: 10px;
-        background-color: $danger;
+        background-color: #f35f5f;
       }
       .friend-group-btn {
         position absolute

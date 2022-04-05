@@ -34,7 +34,7 @@ export default {
 
 <style lang="stylus" scoped>
 .conversation-profile-wrapper 
-  background-color $white
+  background-color #ffffff
   height 100%
   overflow-y scroll
 

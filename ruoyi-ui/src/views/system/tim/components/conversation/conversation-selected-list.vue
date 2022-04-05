@@ -104,7 +104,7 @@
         .header
             height 50px
             padding 10px 16px 10px 20px
-            border-bottom 1px solid $border-base
+            border-bottom 1px solid #e7e7e7
             .member-count
                 display inline-block
                 max-width 130px
@@ -120,7 +120,7 @@
                 cursor pointer
                 float right
                 &:hover
-                    color $light-primary
+                    color #5cadff
         .scroll-content
             max-height: 250px;
             overflow-y: scroll;

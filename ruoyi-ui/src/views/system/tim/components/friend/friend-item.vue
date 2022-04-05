@@ -87,7 +87,7 @@
   .item-nick {
     padding-left: 20px;
     width: 100%;
-    color: $white;
+    color: #ffffff;
     box-sizing: border-box;
     word-wrap: break-word;
     overflow: hidden;
@@ -110,12 +110,12 @@
   .unread-count {
     padding-left 10px
     flex-shrink 0
-    color $font-dark
+    color #76828c
     font-size 12px
   }
   .badge {
     vertical-align bottom
-    background-color $danger
+    background-color #f35f5f
     border-radius 10px
     color #FFF
     display inline-block

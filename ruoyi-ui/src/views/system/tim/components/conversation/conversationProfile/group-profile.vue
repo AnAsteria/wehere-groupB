@@ -558,13 +558,13 @@ export default {
 
   .label {
     font-size: 14px;
-    color: $secondary;
+    color: #a5b5c1;
   }
   .active {
-    color: $black
+    color: #000000
   }
   .content {
-    color: $background;
+    color: #404953;
     word-wrap: break-word;
     word-break: break-all;
   }

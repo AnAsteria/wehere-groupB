@@ -711,12 +711,12 @@
     .accept
         background center no-repeat url("../../../assets/image/call.png")
         background-size 60%
-        background-color $success
+        background-color #0ac160
 
     .refuse
         background center no-repeat url("../../../assets/image/hangup.png")
         background-size 70%
-        background-color $danger
+        background-color #f35f5f
 
     .videoOn
         background center no-repeat url("../../../assets/image/big-camera-on.png")

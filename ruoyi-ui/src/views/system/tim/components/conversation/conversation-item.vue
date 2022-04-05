@@ -210,17 +210,17 @@ export default {
   // &:first-child
   //   padding-top 30px
   &:hover
-    background-color $background
+    background-color #404953
     .close-btn
       right 3px
   .close-btn
     position absolute
     right -20px
     top 3px
-    color $font-dark
+    color #76828c
     transition: all .2s ease;
     &:hover
-      color $danger
+      color #f35f5f
   .warp
     display flex
   .avatar
@@ -237,17 +237,17 @@ export default {
       display flex
       line-height 21px
       .name
-        color $font-light
+        color #f7f7f8
         flex 1
         min-width 0px
       .unread-count
         padding-left 10px
         flex-shrink 0
-        color $font-dark
+        color #76828c
         font-size 12px
         .badge
           vertical-align bottom
-          background-color $danger
+          background-color #f35f5f
           border-radius 10px
           color #FFF
           display inline-block
@@ -266,20 +266,20 @@ export default {
         flex 1
         overflow hidden
         min-width 0px
-        color: $secondary
+        color: #a5b5c1
         .remind
-          color $danger
+          color #f35f5f
       .date
         padding-left 10px
         flex-shrink 0
         text-align right
-        color $font-dark
+        color #76828c
 .choose {
-  background-color: $background;
+  background-color: #404953;
 }
 .context-menu-button {
   padding: 10px
-  border: 2px solid $primary;
+  border: 2px solid #2d8cf0;
   border-radius: 8px;
 }
 </style>

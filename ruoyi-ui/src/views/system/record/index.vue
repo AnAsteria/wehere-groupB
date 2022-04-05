@@ -1,6 +1,6 @@
 <template>
   <div class="app-container">
-    <el-form :model="queryParams" ref="queryForm" :inline="true" v-show="showSearch" label-width="68px">
+    <el-form :model="queryParams" ref="queryForm" :inline="true" v-show="showSearch" label-width="140px">
       <el-form-item label="被咨询者id" prop="toId">
         <el-input
           v-model="queryParams.toId"
@@ -10,6 +10,7 @@
           @keyup.enter.native="handleQuery"
         />
       </el-form-item>
+      <span v-html="'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'"> </span>
       <el-form-item label="咨询者id
 " prop="fromId">
         <el-input
@@ -21,6 +22,7 @@
           @keyup.enter.native="handleQuery"
         />
       </el-form-item>
+      <span v-html="'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'"> </span>
       <el-form-item label="咨询记录的保存路径" prop="recordPath">
         <el-input
           v-model="queryParams.recordPath"
@@ -30,6 +32,7 @@
           @keyup.enter.native="handleQuery"
         />
       </el-form-item>
+      <br />
       <el-form-item label="记录的数量" prop="counts">
         <el-input
           v-model="queryParams.counts"
@@ -39,6 +42,7 @@
           @keyup.enter.native="handleQuery"
         />
       </el-form-item>
+      <span v-html="'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'"> </span>
       <el-form-item label="咨询记录的结束时间" prop="endTime">
         <el-date-picker clearable size="small"
           v-model="queryParams.endTime"
@@ -47,6 +51,7 @@
           placeholder="请选择咨询记录的结束时间">
         </el-date-picker>
       </el-form-item>
+      <span v-html="'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'"> </span>
       <el-form-item>
         <el-button type="primary" icon="el-icon-search" size="mini" @click="handleQuery">搜索</el-button>
         <el-button icon="el-icon-refresh" size="mini" @click="resetQuery">重置</el-button>

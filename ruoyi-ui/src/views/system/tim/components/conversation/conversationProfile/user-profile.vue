@@ -220,18 +220,18 @@ export default {
     margin 30px auto
   .nick-name
     width 100%
-    color $base
+    color #1c2438
     font-size 20px
     font-weight bold
-    text-shadow $font-dark 0 0 0.1em
+    text-shadow #76828c 0 0 0.1em
     .anonymous
-      color $first
+      color #a5b5c1
       text-shadow none
   .gender
     padding 5px 0 10px 0
-    border-bottom 1px solid $border-base
+    border-bottom 1px solid #e7e7e7
   .btn-add-blacklist
-    color $danger
+    color #f35f5f
   .el-select
     margin-left -248px
   .add-item

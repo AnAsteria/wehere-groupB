@@ -141,8 +141,8 @@ export default {
   align-items center
   flex-direction column
   width 450px
-  background $white
-  color $black
+  background #ffffff
+  color #000000
   border-radius 5px
   box-shadow: 0 11px 20px 0 rgba(0,0,0,0.3)
   .row-div
@@ -171,8 +171,8 @@ export default {
   flex-direction: column;
   width: 400px;
   padding: 20px 80px 50px;
-  background: $white;
-  color: $black;
+  background: #ffffff;
+  color: #000000;
   border-radius: 5px;
   box-shadow: 0 11px 20px 0 rgba(0, 0, 0, 0.3);
 

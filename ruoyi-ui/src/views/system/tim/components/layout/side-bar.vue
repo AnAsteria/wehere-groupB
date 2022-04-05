@@ -207,7 +207,7 @@ export default {
 <style lang="stylus" scoped>
 .side-bar-wrapper {
   height: 100%;
-  color: $black;
+  color: #000000;
   display: flex;
   width: 100%;
   overflow: hidden;
@@ -217,8 +217,8 @@ export default {
     flex-shrink: 0;
     flex-direction: column;
     width: 80px;
-    height: $height;
-    background-color: $background-deep-dark;
+    height: 80vh;
+    background-color: #303841;
 
     .tab-items {
       display: flex;
@@ -233,14 +233,14 @@ export default {
         text-align: center;
         font-size: 30px;
         cursor: pointer;
-        color: $first;
+        color: #a5b5c1;
         user-select: none;
         -moz-user-select: none;
       }
 
       .active {
-        color: $white;
-        background-color: $background-dark;
+        color: #ffffff;
+        background-color: #363e47;
 
         &::after {
           content: ' ';
@@ -249,8 +249,8 @@ export default {
           top: 0;
           z-index: 0;
           height: 70px;
-          // border-left 4px solid $border-highlight
-          border-left: 4px solid $light-primary;
+          // border-left 4px solid #55d48b
+          border-left: 4px solid #5cadff;
         }
       }
 
@@ -268,7 +268,7 @@ export default {
         text-align: center;
         white-space: nowrap;
         border-radius: 10px;
-        background-color: $danger;
+        background-color: #f35f5f;
       }
     }
 
@@ -284,7 +284,7 @@ export default {
         height: 70px;
         line-height: 70px;
         font-size: 30px;
-        color: $first;
+        color: #a5b5c1;
         text-align: center;
         cursor: pointer;
       }
@@ -295,7 +295,7 @@ export default {
         text-align: center;
         font-size: 30px;
         cursor: pointer;
-        color: $first;
+        color: #a5b5c1;
         user-select: none;
         -moz-user-select: none;
       }
@@ -306,7 +306,7 @@ export default {
     }
 
     .btn-more:hover {
-      color: $white;
+      color: #ffffff;
     }
   }
 
@@ -315,9 +315,9 @@ export default {
     flex: 1 1 auto;
     width: 100%;
     min-width: 0;
-    height: $height;
+    height: 80vh;
     position: relative;
-    background-color: $background-dark;
+    background-color: #363e47;
   }
   .group-live {
     position relative

@@ -63,7 +63,7 @@ export default {
 //     span
 //       white-space pre-wrap
 //       margin 0
-//       text-shadow $regular 0 0 0.05em
+//       text-shadow #495060 0 0 0.05em
 //     &::before
 //       position: absolute
 //       top: 0
@@ -73,25 +73,25 @@ export default {
 //       font-family 'tim' !important
 //       font-size 24px // 32px 在mac上会模糊 24px正常
 //   .message-received
-//     background-color $white
+//     background-color #ffffff
 //     margin-left 15px
 //     border-radius 0 4px 4px 4px
 //     &::before
 //       left -10px
 //       transform scaleX(-1)
-//       color $white
+//       color #ffffff
 //     &.new
 //       transform: scale(0);
 //       transform-origin: top left;
 //       animation: bounce 500ms linear both;
 //   .message-send
-//     background-color $light-primary
+//     background-color #5cadff
 //     margin-right 15px
 //     border-radius 4px 0 4px 4px
-//     color $white
+//     color #ffffff
 //     &::before
 //       right: -10px
-//       color $light-primary
+//       color #5cadff
 //     &.new
 //       transform: scale(0);
 //       transform-origin: top right;

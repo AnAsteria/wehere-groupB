@@ -60,7 +60,7 @@ export default {
   margin-left: 15px;
 }
 .base {
-  color: $secondary;
+  color: #a5b5c1;
   font-size: 12px;
 }
 .name {

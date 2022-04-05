@@ -46,7 +46,7 @@ export default {
 .message-send-fail {
   margin-right: 8px;
   background-color: #f35f5f;
-  color: $white;
+  color: #ffffff;
   border-radius: 50%;
   text-align: center;
   line-height: 16px;
