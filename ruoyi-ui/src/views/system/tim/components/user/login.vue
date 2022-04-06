@@ -21,26 +21,15 @@
           ></el-option>
         </el-select>
       </el-form-item>
-      <!-- 线上版本登录方式 -->
-      <!-- <el-form-item prop="userID">
-        <el-input v-model="form.userID" placeholder="请输入用户名" type="text" clearable></el-input>
-      </el-form-item>
-      <el-form-item prop="password">
-        <el-input
-          v-model="form.password"
-          placeholder="请输入密码"
-          type="password"
-          show-password
-          clearable
-        ></el-input>
-      </el-form-item>-->
     </el-form>
+
     <el-button
       type="primary"
       @click="submit"
       style="width:100%; margin-top: 6px;"
       :loading="loading"
     >登录</el-button>
+
   </div>
 </template>
 
@@ -49,6 +38,11 @@ import { Form, FormItem, Select, Option } from 'element-ui'
 import logo from '../../assets/image/logo.png'
 import tim from '../../../../../tim.js'
 import { getUserSig, SDKAppID } from '../../../../../api/im/api/usersig.js'
+import {getUserProfile} from "@/api/system/user";
+
+import userAvatar from "../../../user/profile/userAvatar";
+import userInfo from "../../../user/profile/userInfo";
+import resetPwd from "../../../user/profile/resetPwd";
 
 export default {
   name: 'Login',
@@ -57,6 +51,9 @@ export default {
     ElFormItem: FormItem,
     ElSelect: Select,
     ElOption: Option,
+    userAvatar,
+    userInfo,
+    resetPwd
   },
   data() {
     const checkUserID = (rule, value, callback) => {
@@ -68,6 +65,7 @@ export default {
     }
 
     return {
+      user: {},
       form: {
         userID: 'user0',
         password: ''
@@ -83,6 +81,12 @@ export default {
       registerVisible: false,
       loading: false
     }
+  },
+  mounted() {
+    getUserProfile().then(response => {
+      this.form.userID =  response.data.userName
+      this.submit()
+    });
   },
   methods: {
     submit() {

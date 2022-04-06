@@ -1,9 +1,15 @@
 package com.ruoyi.web.controller.system;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Collectors;
 import javax.servlet.http.HttpServletResponse;
 
+import com.alibaba.fastjson.JSONObject;
+import com.ruoyi.common.constant.HttpStatus;
+import com.ruoyi.common.utils.client.TIMClient;
+import com.ruoyi.system.domain.ImAccount;
+import com.ruoyi.system.service.IImAccountService;
 import io.swagger.annotations.ApiOperation;
 import org.apache.commons.lang3.ArrayUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -143,6 +149,20 @@ public class SysUserController extends BaseController
         }
         user.setCreateBy(getUsername());
         user.setPassword(SecurityUtils.encryptPassword(user.getPassword()));
+
+        //同步向腾讯IM控制台上添加用户
+        JSONObject requesrBody = new JSONObject(new HashMap<String, Object>(){{
+            put("UserId", user.getUserName());
+            put("Nick", user.getUserName());
+            put("FaceUrl", "http://www.qq.com");
+        }});
+
+        TIMClient.sendRequest("im_open_login_svc",
+                "account_import",
+                "administrator",
+                requesrBody,
+                JSONObject.class);
+
         return toAjax(userService.insertUser(user));
     }
 
