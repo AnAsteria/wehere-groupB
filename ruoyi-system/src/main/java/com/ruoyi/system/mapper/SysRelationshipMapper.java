@@ -29,6 +29,14 @@ public interface SysRelationshipMapper
     public List<SysRelationship> selectSysRelationshipListBySupervisorId(Long supervisorId);
 
     /**
+     * 依据咨询师id查询关系管理列表
+     *
+     * @param consultantId 关系管理
+     * @return 关系管理
+     */
+    public List<SysRelationship> selectSysRelationshipListByConsultantId(Long consultantId);
+
+    /**
      * 查询关系管理列表
      * 
      * @param sysRelationship 关系管理

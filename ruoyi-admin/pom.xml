@@ -16,18 +16,6 @@
     </description>
 
     <dependencies>
-        <!--导入自定义模块-->
-        <dependency>
-            <groupId>com.ruoyi</groupId>
-            <artifactId>ruoyi-shcedule</artifactId>
-            <version>3.8.1</version>
-        </dependency>
-
-        <dependency>
-            <groupId>com.ruoyi</groupId>
-            <artifactId>ruoyi-record</artifactId>
-            <version>3.8.1</version>
-        </dependency>
         <!-- spring-boot-devtools -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
