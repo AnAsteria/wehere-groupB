@@ -20,7 +20,6 @@
             :value="`user${index-1}`"
           ></el-option>
         </el-select>
-<<<<<<< HEAD
       </el-form-item>-->
       <!-- 线上版本登录方式 -->
       <el-form-item prop="userID">
@@ -35,9 +34,6 @@
           clearable
         ></el-input>
       </el-form-item>-->
-=======
-      /el-form-item>
->>>>>>> ebe0f96a0c44c1cb48b383697ca9be851bba3bc1
     </el-form>
 
     <el-button
@@ -55,16 +51,8 @@ import { Form, FormItem, Select, Option } from 'element-ui'
 import logo from '../../assets/image/logo.png'
 import tim from '../../../../../tim.js'
 import { getUserSig, SDKAppID } from '../../../../../api/im/api/usersig.js'
-<<<<<<< HEAD
 import { getUserProfile } from "@/api/system/user"
 
-=======
-import {getUserProfile} from "@/api/system/user";
-
-import userAvatar from "../../../user/profile/userAvatar";
-import userInfo from "../../../user/profile/userInfo";
-import resetPwd from "../../../user/profile/resetPwd";
->>>>>>> ebe0f96a0c44c1cb48b383697ca9be851bba3bc1
 
 export default {
   name: 'Login',
