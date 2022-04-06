@@ -73,7 +73,6 @@ export default {
     }
 
     return {
-      user: {},
       form: {
         userID: 'user0',
         password: ''
