@@ -401,7 +401,7 @@
   }
   .loading {
     height: 100vh;
-    width: 100vw;
+    width: 90vw;
     display: flex;
     justify-content: center;
   }

@@ -11,7 +11,7 @@
       @keydown.enter.native="submit"
     >
       <!-- Github登录方式 -->
-      <el-form-item prop="userID">
+    <!--  <el-form-item prop="userID">
         <el-select v-model="form.userID" class="user-selector">
           <el-option
             v-for="index in 30"
@@ -20,12 +20,12 @@
             :value="`user${index-1}`"
           ></el-option>
         </el-select>
-      </el-form-item>
+      </el-form-item>-->
       <!-- 线上版本登录方式 -->
-      <!-- <el-form-item prop="userID">
+      <el-form-item prop="userID">
         <el-input v-model="form.userID" placeholder="请输入用户名" type="text" clearable></el-input>
       </el-form-item>
-      <el-form-item prop="password">
+      <!--<el-form-item prop="password">
         <el-input
           v-model="form.password"
           placeholder="请输入密码"
@@ -49,6 +49,8 @@ import { Form, FormItem, Select, Option } from 'element-ui'
 import logo from '../../assets/image/logo.png'
 import tim from '../../../../../tim.js'
 import { getUserSig, SDKAppID } from '../../../../../api/im/api/usersig.js'
+import { getUserProfile } from "@/api/system/user"
+
 
 export default {
   name: 'Login',
@@ -81,10 +83,28 @@ export default {
       },
       logo: logo,
       registerVisible: false,
-      loading: false
+      loading: false,
+      user:{}
+    }
+  },
+  created(){
+    this.getUser()
+  },
+  watch:{
+    user(){
+      this.$nextTick( ()=>{
+        this.form.userID=this.user.userName
+        console.log(this.user.userName)
+        this.submit()
+      } )
     }
   },
   methods: {
+    getUser(){
+      getUserProfile().then(response => {
+        this.user = response.data;
+      })
+    },
     submit() {
       this.$refs['login'].validate(valid => {
         if (valid) {
