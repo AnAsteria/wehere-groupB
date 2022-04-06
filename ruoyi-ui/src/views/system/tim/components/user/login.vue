@@ -73,7 +73,6 @@ export default {
     }
 
     return {
-      user: {},
       form: {
         userID: 'user0',
         password: ''
@@ -103,12 +102,7 @@ export default {
       } )
     }
   },
-  mounted() {
-    getUserProfile().then(response => {
-      this.form.userID =  response.data.userName
-      this.submit()
-    });
-  },
+  
   methods: {
     getUser(){
       getUserProfile().then(response => {
