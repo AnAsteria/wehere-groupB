@@ -55,6 +55,13 @@
                 <version>${druid.version}</version>
             </dependency>
 
+            <!-- https://mvnrepository.com/artifact/mysql/mysql-connector-java -->
+            <dependency>
+                <groupId>mysql</groupId>
+                <artifactId>mysql-connector-java</artifactId>
+                <version>8.0.28</version>
+            </dependency>
+
             <!-- 解析客户端操作系统、浏览器等 -->
             <dependency>
                 <groupId>eu.bitwalker</groupId>
@@ -74,6 +81,22 @@
                 <groupId>com.github.pagehelper</groupId>
                 <artifactId>pagehelper-spring-boot-starter</artifactId>
                 <version>${pagehelper.boot.version}</version>
+            </dependency>
+
+
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-test</artifactId>
+                <scope>test</scope>
+            </dependency>
+
+
+
+            <!-- http请求工具类依赖 -->
+            <dependency>
+                <groupId>org.apache.httpcomponents</groupId>
+                <artifactId>httpclient</artifactId>
+                <version>4.5.13</version>
             </dependency>
 
             <!-- 获取系统信息 -->
