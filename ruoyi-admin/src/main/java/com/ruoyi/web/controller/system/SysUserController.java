@@ -150,6 +150,7 @@ public class SysUserController extends BaseController
         user.setCreateBy(getUsername());
         user.setPassword(SecurityUtils.encryptPassword(user.getPassword()));
 
+        //同步向腾讯IM控制台上添加用户
         JSONObject requesrBody = new JSONObject(new HashMap<String, Object>(){{
             put("UserId", user.getUserName());
             put("Nick", user.getUserName());
