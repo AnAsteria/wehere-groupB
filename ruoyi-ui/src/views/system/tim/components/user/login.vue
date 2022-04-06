@@ -61,9 +61,7 @@ export default {
     ElFormItem: FormItem,
     ElSelect: Select,
     ElOption: Option,
-    userAvatar,
-    userInfo,
-    resetPwd
+    
   },
   data() {
     const checkUserID = (rule, value, callback) => {
