@@ -60,10 +60,11 @@ public class MiniController {
 
         JSONObject jsonObject = JSON.parseObject(result);
         String openid = jsonObject.getString("openid");
+        String token = jsonObject.getString("token");
 //        log.info("微信小程序唯一标识：{}",openid);
         AjaxResult ajax = AjaxResult.success();
         ajax.put("openid",openid);
-
+        ajax.put("token",token);
         return ajax;
 
 
