@@ -2,6 +2,8 @@ package com.ruoyi.system.controller;
 
 import java.util.List;
 import javax.servlet.http.HttpServletResponse;
+
+import io.swagger.annotations.ApiOperation;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -37,6 +39,7 @@ public class SysEvaluationController extends BaseController
     /**
      * 查询评价系统列表
      */
+    @ApiOperation("查询评价系统列表")
     @PreAuthorize("@ss.hasPermi('system:evaluation:list')")
     @GetMapping("/list")
     public TableDataInfo list(SysEvaluation sysEvaluation)
@@ -47,8 +50,9 @@ public class SysEvaluationController extends BaseController
     }
 
     /**
-     * 查询评价系统列表
+     * 查询受评者平均得分
      */
+    @ApiOperation("查询受评者平均得分")
     @PreAuthorize("@ss.hasPermi('system:evaluation:list')")
     @GetMapping("/avg_score/{to_id}")
     public AjaxResult getAvgScoreByToId(@PathVariable("to_id") Long toId)
@@ -59,6 +63,7 @@ public class SysEvaluationController extends BaseController
     /**
      * 导出评价系统列表
      */
+    @ApiOperation("导出评价系统列表")
     @PreAuthorize("@ss.hasPermi('system:evaluation:export')")
     @Log(title = "评价系统", businessType = BusinessType.EXPORT)
     @PostMapping("/export")
@@ -72,6 +77,7 @@ public class SysEvaluationController extends BaseController
     /**
      * 获取评价系统详细信息
      */
+    @ApiOperation("获取评价系统详细信息")
     @PreAuthorize("@ss.hasPermi('system:evaluation:query')")
     @GetMapping(value = "/{id}")
     public AjaxResult getInfo(@PathVariable("id") Long id)
@@ -82,6 +88,7 @@ public class SysEvaluationController extends BaseController
     /**
      * 新增评价系统
      */
+    @ApiOperation("新增评价系统")
     @PreAuthorize("@ss.hasPermi('system:evaluation:add')")
     @Log(title = "评价系统", businessType = BusinessType.INSERT)
     @PostMapping
@@ -93,6 +100,7 @@ public class SysEvaluationController extends BaseController
     /**
      * 修改评价系统
      */
+    @ApiOperation("修改评价系统")
     @PreAuthorize("@ss.hasPermi('system:evaluation:edit')")
     @Log(title = "评价系统", businessType = BusinessType.UPDATE)
     @PutMapping
@@ -104,6 +112,7 @@ public class SysEvaluationController extends BaseController
     /**
      * 删除评价系统
      */
+    @ApiOperation("删除评价系统")
     @PreAuthorize("@ss.hasPermi('system:evaluation:remove')")
     @Log(title = "评价系统", businessType = BusinessType.DELETE)
 	@DeleteMapping("/{ids}")
