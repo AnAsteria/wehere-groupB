@@ -45,6 +45,17 @@ public class SysEvaluationServiceImpl implements ISysEvaluationService
     }
 
     /**
+     * 查询指定toid的平均得分
+     *
+     * @param toId 评价系统
+     * @return 结果
+     */
+    @Override
+    public int selectAvgScoreByToId(Long toId){
+        return sysEvaluationMapper.selectAvgScoreByToId(toId);
+    }
+
+    /**
      * 新增评价系统
      * 
      * @param sysEvaluation 评价系统

@@ -28,6 +28,14 @@ public interface SysEvaluationMapper
     public List<SysEvaluation> selectSysEvaluationList(SysEvaluation sysEvaluation);
 
     /**
+     * 查询指定toid的平均得分
+     *
+     * @param toId 评价系统
+     * @return 结果
+     */
+    public int selectAvgScoreByToId(Long toId);
+
+    /**
      * 新增评价系统
      * 
      * @param sysEvaluation 评价系统

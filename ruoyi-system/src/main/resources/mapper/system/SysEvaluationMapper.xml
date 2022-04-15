@@ -16,6 +16,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         select id, from_id, to_id, score, create_time from sys_evaluation
     </sql>
 
+    <sql id="selectSysEvaluationAvgScore">
+        select AVG(score) from sys_evaluation
+    </sql>
+
     <select id="selectSysEvaluationList" parameterType="SysEvaluation" resultMap="SysEvaluationResult">
         <include refid="selectSysEvaluationVo"/>
         <where>  
@@ -26,6 +30,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </select>
     
     <select id="selectSysEvaluationById" parameterType="Long" resultMap="SysEvaluationResult">
+        <include refid="selectSysEvaluationVo"/>
+        where to_id = #{toId}
+    </select>
+
+    <select id="selectAvgScoreByToId" parameterType="Long" resultMap="SysEvaluationResult">
         <include refid="selectSysEvaluationVo"/>
         where id = #{id}
     </select>

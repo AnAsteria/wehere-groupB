@@ -47,6 +47,16 @@ public class SysEvaluationController extends BaseController
     }
 
     /**
+     * 查询评价系统列表
+     */
+    @PreAuthorize("@ss.hasPermi('system:evaluation:list')")
+    @GetMapping("/avg_score/{to_id}")
+    public AjaxResult getAvgScoreByToId(@PathVariable("to_id") Long toId)
+    {
+        return AjaxResult.success(sysEvaluationService.selectAvgScoreByToId(toId));
+    }
+
+    /**
      * 导出评价系统列表
      */
     @PreAuthorize("@ss.hasPermi('system:evaluation:export')")
