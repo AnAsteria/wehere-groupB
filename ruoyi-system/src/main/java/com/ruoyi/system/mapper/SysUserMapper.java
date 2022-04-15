@@ -124,4 +124,12 @@ public interface SysUserMapper
      * @return 结果
      */
     public SysUser checkEmailUnique(String email);
+
+    /**
+     * 根据部门查询用户列表
+     *
+     * @param deptId
+     * @return 用户信息集合信息
+     */
+    public List<SysUser> selectUserListByDeptId(Integer deptId);
 }

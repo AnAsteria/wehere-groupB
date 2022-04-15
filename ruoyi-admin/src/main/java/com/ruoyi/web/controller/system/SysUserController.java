@@ -81,6 +81,16 @@ public class SysUserController extends BaseController
         return getDataTable(list);
     }
 
+    /**
+     * 依据部门获取用户列表
+     */
+    @ApiOperation("获取用户列表")
+    @GetMapping("/list/{dept_id}")
+    public TableDataInfo list(@PathVariable("dept_id") Integer deptId){
+        return getDataTable(userService.selectUserListByDeptId(deptId));
+    }
+
+
     @Log(title = "用户管理", businessType = BusinessType.EXPORT)
     @PreAuthorize("@ss.hasPermi('system:user:export')")
     @PostMapping("/export")
