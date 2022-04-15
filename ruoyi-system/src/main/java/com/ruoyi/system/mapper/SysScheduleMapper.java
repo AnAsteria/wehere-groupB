@@ -10,8 +10,16 @@ import java.util.List;
  * @author Group9
  * @date 2022-03-21
  */
-public interface SysScheduleMapper 
+public interface SysScheduleMapper
 {
+    /**
+     * 依据日期查询排班人员
+     *
+     * @param sysSchedule
+     * @return 排班表
+     */
+    public List<SysSchedule> selectSysScheduleByDate(SysSchedule sysSchedule);
+
     /**
      * 查询排班表管理
      * 

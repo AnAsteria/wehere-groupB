@@ -22,6 +22,17 @@ public class SysScheduleServiceImpl implements ISysScheduleService
     private SysScheduleMapper sysScheduleMapper;
 
     /**
+     * 依据日期查询排班人员
+     *
+     * @param sysSchedule
+     * @return 排班表
+     */
+    @Override
+    public List<SysSchedule> selectSysScheduleByDate(SysSchedule sysSchedule){
+        return sysScheduleMapper.selectSysScheduleByDate(sysSchedule);
+    }
+
+    /**
      * 查询排班表管理
      * 
      * @param id 排班表管理主键

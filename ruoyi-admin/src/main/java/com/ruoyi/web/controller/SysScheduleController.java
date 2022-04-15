@@ -17,14 +17,13 @@ import com.ruoyi.system.service.ISysRelationshipService;
 import com.ruoyi.system.service.ISysScheduleService;
 import com.ruoyi.system.service.ISysUserService;
 import io.swagger.annotations.ApiOperation;
+import jdk.nashorn.internal.ir.ReturnNode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Stack;
+import java.util.*;
 
 /**
  * 排班表管理Controller
@@ -76,6 +75,67 @@ public class SysScheduleController extends BaseController
         }
 
         return list;
+    }
+
+    /**
+     * 获取当前时间
+     */
+    @ApiOperation("获取当前时间")
+    @PreAuthorize("@ss.hasPermi('system:schedule:curtime')")
+    @GetMapping("/curtime")
+    private Date getCurTime(){
+        return new Date();
+    }
+
+    /**
+     * 获取当前年份
+     */
+    @ApiOperation("获取当前年份")
+    @PreAuthorize("@ss.hasPermi('system:schedule:curyear')")
+    @GetMapping("/curyear")
+    private Integer getCurTYear(){
+        return Calendar.getInstance().get(Calendar.YEAR);
+    }
+
+    /**
+     * 获取当前月份
+     */
+    @ApiOperation("获取当前月份")
+    @PreAuthorize("@ss.hasPermi('system:schedule:curmonth')")
+    @GetMapping("/curmonth")
+    private Integer getCurTMonth(){
+        return Calendar.getInstance().get(Calendar.MONTH);
+    }
+
+    /**
+     * 获取当前日
+     */
+    @ApiOperation("获取当前日")
+    @PreAuthorize("@ss.hasPermi('system:schedule:curday')")
+    @GetMapping("/curday")
+    private Integer getCurTDay(){
+        return Calendar.getInstance().get(Calendar.DATE);
+    }
+
+    /**
+     * 获取当前星期几
+     */
+    @ApiOperation("获取当前月份")
+    @PreAuthorize("@ss.hasPermi('system:schedule:curweekday')")
+    @GetMapping("/curweekday")
+    private Integer getCurTWeekday(){
+        return Calendar.getInstance().get(Calendar.DAY_OF_WEEK);
+    }
+
+    /**
+     * 依据日期获取排班人员
+     */
+    @ApiOperation("依据日期获取排班人员")
+    @PreAuthorize("@ss.hasPermi('system:schedule:list_by_date')")
+    @GetMapping("/list_by_date")
+    private TableDataInfo getSysScheduleListByDate(SysSchedule sysSchedule){
+        List<SysSchedule> list = sysScheduleService.selectSysScheduleByDate(sysSchedule);
+        return getDataTable(list);
     }
 
     /**

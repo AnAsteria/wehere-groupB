@@ -21,6 +21,14 @@ public interface ISysScheduleService
     public SysSchedule selectSysScheduleById(Long id);
 
     /**
+     * 依据日期查询排班人员
+     *
+     * @param sysSchedule
+     * @return 排班表
+     */
+    public List<SysSchedule> selectSysScheduleByDate(SysSchedule sysSchedule);
+
+    /**
      * 依据用户id查询排班表管理
      *
      * @param userId 排班表管理主键
