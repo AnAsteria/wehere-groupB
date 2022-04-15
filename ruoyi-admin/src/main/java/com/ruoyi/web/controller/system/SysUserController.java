@@ -1,5 +1,29 @@
 package com.ruoyi.web.controller.system;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.stream.Collectors;
+import javax.servlet.http.HttpServletResponse;
+
+import com.alibaba.fastjson.JSONObject;
+import com.ruoyi.common.constant.HttpStatus;
+import com.ruoyi.common.utils.client.TIMClient;
+import com.ruoyi.system.domain.ImAccount;
+import com.ruoyi.system.service.IImAccountService;
+import io.swagger.annotations.ApiOperation;
+import org.apache.commons.lang3.ArrayUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 import com.ruoyi.common.annotation.Log;
 import com.ruoyi.common.constant.UserConstants;
 import com.ruoyi.common.core.controller.BaseController;
@@ -136,6 +160,20 @@ public class SysUserController extends BaseController
         }
         user.setCreateBy(getUsername());
         user.setPassword(SecurityUtils.encryptPassword(user.getPassword()));
+
+        //同步向腾讯IM控制台上添加用户
+        JSONObject requesrBody = new JSONObject(new HashMap<String, Object>(){{
+            put("UserId", user.getUserName());
+            put("Nick", user.getUserName());
+            put("FaceUrl", "http://www.qq.com");
+        }});
+
+        TIMClient.sendRequest("im_open_login_svc",
+                "account_import",
+                "administrator",
+                requesrBody,
+                JSONObject.class);
+
         return toAjax(userService.insertUser(user));
     }
 

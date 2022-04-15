@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.system.mapper.SysEvaluationMapper">
+    
+    <resultMap type="SysEvaluation" id="SysEvaluationResult">
+        <result property="id"    column="id"    />
+        <result property="fromId"    column="from_id"    />
+        <result property="toId"    column="to_id"    />
+        <result property="score"    column="score"    />
+        <result property="createTime"    column="create_time"    />
+    </resultMap>
+
+    <sql id="selectSysEvaluationVo">
+        select id, from_id, to_id, score, create_time from sys_evaluation
+    </sql>
+
+    <sql id="selectSysEvaluationAvgScore">
+        select AVG(score) from sys_evaluation
+    </sql>
+
+    <select id="selectSysEvaluationList" parameterType="SysEvaluation" resultMap="SysEvaluationResult">
+        <include refid="selectSysEvaluationVo"/>
+        <where>  
+            <if test="fromId != null "> and from_id = #{fromId}</if>
+            <if test="toId != null "> and to_id = #{toId}</if>
+            <if test="score != null "> and score = #{score}</if>
+        </where>
+    </select>
+    
+    <select id="selectSysEvaluationById" parameterType="Long" resultMap="SysEvaluationResult">
+        <include refid="selectSysEvaluationVo"/>
+        where to_id = #{toId}
+    </select>
+
+    <select id="selectAvgScoreByToId" parameterType="Long" resultMap="SysEvaluationResult">
+        <include refid="selectSysEvaluationVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertSysEvaluation" parameterType="SysEvaluation" useGeneratedKeys="true" keyProperty="id">
+        insert into sys_evaluation
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="fromId != null">from_id,</if>
+            <if test="toId != null">to_id,</if>
+            <if test="score != null">score,</if>
+            <if test="createTime != null">create_time,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="fromId != null">#{fromId},</if>
+            <if test="toId != null">#{toId},</if>
+            <if test="score != null">#{score},</if>
+            <if test="createTime != null">#{createTime},</if>
+         </trim>
+    </insert>
+
+    <update id="updateSysEvaluation" parameterType="SysEvaluation">
+        update sys_evaluation
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="fromId != null">from_id = #{fromId},</if>
+            <if test="toId != null">to_id = #{toId},</if>
+            <if test="score != null">score = #{score},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteSysEvaluationById" parameterType="Long">
+        delete from sys_evaluation where id = #{id}
+    </delete>
+
+    <delete id="deleteSysEvaluationByIds" parameterType="String">
+        delete from sys_evaluation where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>
