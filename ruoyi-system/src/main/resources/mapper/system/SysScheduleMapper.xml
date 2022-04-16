@@ -9,6 +9,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <result property="userName"    column="user_name"    />
         <result property="time"    column="time"    />
     </resultMap>
+    <resultMap type="SuSysSchedule" id="SuSysScheduleResult">
+        <result property="id"    column="id"    />
+        <result property="userName"    column="user_name"    />
+        <result property="time"    column="time"    />
+        <result property="deptId"    column="dept_id"    />
+        <result property="nickName"    column="nick_name"    />
+    </resultMap>
 
     <sql id="selectSysScheduleVo">
         select id, user_name, time from sys_schedule
@@ -21,7 +28,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="time != null "> and time = #{time}</if>
         </where>
     </select>
-    
+
+    <select id="suSelectSysScheduleList" parameterType="SuSysSchedule" resultMap="SuSysScheduleResult">
+        SELECT ss.id, ss.user_name, time, dept_id, nick_name FROM sys_schedule ss JOIN sys_user su ON ss.user_name = su.user_name
+    </select>
+
     <select id="selectSysScheduleById" parameterType="Long" resultMap="SysScheduleResult">
         <include refid="selectSysScheduleVo"/>
         where id = #{id}

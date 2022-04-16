@@ -130,6 +130,7 @@ export default {
     getSchedule(){
       suListSchedule(this.queryParams).then(response => {
         this.scheduleList = response.rows;
+        this.$message.info(this.scheduleList)
         this.scheduleList.forEach(d => {
           this.calendarOptions.events.push({
             id : d.id,
@@ -137,7 +138,7 @@ export default {
             end : d.time,
             color : '#2196F3',
             background : '#2196F3',
-            title : d.userName
+            title : d.nickName + "\n" + d.deptId
           })
         })
       });

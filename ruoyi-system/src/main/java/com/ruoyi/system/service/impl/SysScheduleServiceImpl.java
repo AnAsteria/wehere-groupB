@@ -1,6 +1,7 @@
 package com.ruoyi.system.service.impl;
 
 import com.ruoyi.common.utils.DateUtils;
+import com.ruoyi.system.domain.SuSysSchedule;
 import com.ruoyi.system.domain.SysSchedule;
 import com.ruoyi.system.mapper.SysScheduleMapper;
 import com.ruoyi.system.service.ISysScheduleService;
@@ -32,6 +33,19 @@ public class SysScheduleServiceImpl implements ISysScheduleService
     {
         return sysScheduleMapper.selectSysScheduleById(id);
     }
+
+    /**
+     * 最高权限查询排班表管理列表
+     *
+     * @param sysSchedule 排班表管理
+     * @return 排班表管理
+     */
+    @Override
+    public List<SuSysSchedule> suSelectSysScheduleList(SuSysSchedule sysSchedule)
+    {
+        return sysScheduleMapper.suSelectSysScheduleList(sysSchedule);
+    }
+
 
     /**
      * 查询排班表管理列表

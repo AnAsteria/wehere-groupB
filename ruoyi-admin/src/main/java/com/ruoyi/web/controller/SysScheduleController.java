@@ -2,6 +2,8 @@ package com.ruoyi.web.controller;
 
 import java.util.List;
 import javax.servlet.http.HttpServletResponse;
+
+import com.ruoyi.system.domain.SuSysSchedule;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -50,10 +52,10 @@ public class SysScheduleController extends BaseController
      * 最高权限查询排班表管理列表
      */
     @GetMapping("/su_list")
-    public TableDataInfo suList(SysSchedule sysSchedule)
+    public TableDataInfo suList(SuSysSchedule sysSchedule)
     {
         startPage();
-        List<SysSchedule> list = sysScheduleService.selectSysScheduleList(sysSchedule);
+        List<SuSysSchedule> list = sysScheduleService.suSelectSysScheduleList(sysSchedule);
         return getDataTable(list);
     }
 
