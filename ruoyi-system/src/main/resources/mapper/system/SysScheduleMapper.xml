@@ -13,7 +13,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <result property="id"    column="id"    />
         <result property="userName"    column="user_name"    />
         <result property="time"    column="time"    />
-        <result property="deptId"    column="dept_id"    />
+        <result property="deptName"    column="dept_name"    />
         <result property="nickName"    column="nick_name"    />
     </resultMap>
 
@@ -30,7 +30,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </select>
 
     <select id="suSelectSysScheduleList" parameterType="SuSysSchedule" resultMap="SuSysScheduleResult">
-        SELECT ss.id, ss.user_name, time, dept_id, nick_name FROM sys_schedule ss JOIN sys_user su ON ss.user_name = su.user_name
+        SELECT user_name, time, dept_name, nick_name FROM (SELECT ss.id, ss.user_name, time, dept_id, nick_name FROM sys_schedule ss JOIN sys_user su ON ss.user_name = su.user_name) t JOIN sys_dept ON sys_dept.dept_id = t.dept_id
     </select>
 
     <select id="selectSysScheduleById" parameterType="Long" resultMap="SysScheduleResult">

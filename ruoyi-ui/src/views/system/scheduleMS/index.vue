@@ -5,36 +5,6 @@
         <full-calendar ref="fullCalendar" style="height: 100%" :options="calendarOptions"></full-calendar>
       </el-col>
     </el-row>
-
-    <!-- 添加或修改 -->
-    <el-dialog title="收货地址" :visible.sync="dialogFormVisible">
-      <el-form :model="form" label-width="80px">
-        <el-form-item label="值班人" >
-          <el-select v-model="form.userName" placeholder="请选择出诊医生">
-            <el-option
-              v-for="item in userList"
-              :key="item.id"
-              :label="item.nickName"
-              :value="item.userName">
-            </el-option>
-          </el-select>
-        </el-form-item>
-        <el-form-item label="排班时间" >
-          <el-date-picker
-            v-model="form.time"
-            format="yyyy-MM-dd"
-            value-format="yyyy-MM-dd"
-            type="date"
-            placeholder="选择排班日期">
-          </el-date-picker>
-        </el-form-item>
-      </el-form>
-      <div slot="footer" class="dialog-footer">
-        <el-button  @click="dialogFormVisible = false" size="small">取 消</el-button>
-        <el-button type="primary" @click="save" size="small">保 存</el-button>
-      </div>
-    </el-dialog>
-
   </div>
 </template>
 
@@ -130,7 +100,6 @@ export default {
     getSchedule(){
       suListSchedule(this.queryParams).then(response => {
         this.scheduleList = response.rows;
-        this.$message.info(this.scheduleList)
         this.scheduleList.forEach(d => {
           this.calendarOptions.events.push({
             id : d.id,
@@ -138,7 +107,7 @@ export default {
             end : d.time,
             color : '#2196F3',
             background : '#2196F3',
-            title : d.nickName + "\n" + d.deptId
+            title : d.nickName + "\n" + d.deptName
           })
         })
       });

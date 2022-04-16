@@ -23,8 +23,16 @@ public class SuSysSchedule{
     @Excel(name = "排班日期", width = 30, dateFormat = "yyyy-MM-dd")
     private Date time;
 
-    @Excel(name = "部门id")
-    private Long deptId;
+    public String getDeptName() {
+        return deptName;
+    }
+
+    public void setDeptName(String deptName) {
+        this.deptName = deptName;
+    }
+
+    @Excel(name = "部门")
+    private String deptName;
 
     @Excel(name = "昵称")
     private String nickName;
@@ -56,9 +64,6 @@ public class SuSysSchedule{
         return time;
     }
 
-    public Long getDeptId() { return deptId; }
-    public void setDeptId(Long deptId) { this.deptId = deptId; }
-
     public String getNickName() {
         return nickName;
     }
@@ -73,7 +78,7 @@ public class SuSysSchedule{
                 .append("id", getId())
                 .append("userName", getUserName())
                 .append("time", getTime())
-                .append("deptId", getDeptId().toString())
+                .append("deptId", getDeptName())
                 .append("nickName", getNickName())
                 .toString();
     }
