@@ -9,7 +9,7 @@ import com.ruoyi.common.core.domain.BaseEntity;
  * 评价系统对象 sys_evaluation
  * 
  * @author Group9
- * @date 2022-04-15
+ * @date 2022-04-16
  */
 public class SysEvaluation extends BaseEntity
 {

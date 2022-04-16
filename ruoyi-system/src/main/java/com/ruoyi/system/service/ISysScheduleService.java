@@ -1,14 +1,13 @@
 package com.ruoyi.system.service;
 
-import com.ruoyi.system.domain.SysSchedule;
-
 import java.util.List;
+import com.ruoyi.system.domain.SysSchedule;
 
 /**
  * 排班表管理Service接口
  * 
  * @author Group9
- * @date 2022-03-21
+ * @date 2022-04-16
  */
 public interface ISysScheduleService 
 {
@@ -19,22 +18,6 @@ public interface ISysScheduleService
      * @return 排班表管理
      */
     public SysSchedule selectSysScheduleById(Long id);
-
-    /**
-     * 依据日期查询排班人员
-     *
-     * @param sysSchedule
-     * @return 排班表
-     */
-    public List<SysSchedule> selectSysScheduleByDate(SysSchedule sysSchedule);
-
-    /**
-     * 依据用户id查询排班表管理
-     *
-     * @param userId 排班表管理主键
-     * @return 排班表管理
-     */
-    public List<SysSchedule> selectSysScheduleListByUserId(Long userId);
 
     /**
      * 查询排班表管理列表

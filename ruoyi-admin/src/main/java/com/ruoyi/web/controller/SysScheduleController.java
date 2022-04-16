@@ -1,35 +1,31 @@
 package com.ruoyi.web.controller;
 
+import java.util.List;
+import javax.servlet.http.HttpServletResponse;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 import com.ruoyi.common.annotation.Log;
 import com.ruoyi.common.core.controller.BaseController;
 import com.ruoyi.common.core.domain.AjaxResult;
-import com.ruoyi.common.core.domain.entity.SysUser;
-import com.ruoyi.common.core.domain.model.LoginUser;
-import com.ruoyi.common.core.page.TableDataInfo;
 import com.ruoyi.common.enums.BusinessType;
-import com.ruoyi.common.utils.SecurityUtils;
-import com.ruoyi.common.utils.poi.ExcelUtil;
-import com.ruoyi.system.domain.CstRecord;
-import com.ruoyi.system.domain.SysRelationship;
 import com.ruoyi.system.domain.SysSchedule;
-import com.ruoyi.system.mapper.SysUserMapper;
-import com.ruoyi.system.service.ISysRelationshipService;
 import com.ruoyi.system.service.ISysScheduleService;
-import com.ruoyi.system.service.ISysUserService;
-import io.swagger.annotations.ApiOperation;
-import jdk.nashorn.internal.ir.ReturnNode;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.*;
-
-import javax.servlet.http.HttpServletResponse;
-import java.util.*;
+import com.ruoyi.common.utils.poi.ExcelUtil;
+import com.ruoyi.common.core.page.TableDataInfo;
 
 /**
  * 排班表管理Controller
  * 
  * @author Group9
- * @date 2022-03-21
+ * @date 2022-04-16
  */
 @RestController
 @RequestMapping("/system/schedule")
@@ -38,129 +34,38 @@ public class SysScheduleController extends BaseController
     @Autowired
     private ISysScheduleService sysScheduleService;
 
-    @Autowired
-    private ISysRelationshipService sysRelationshipService;
-
-    @Autowired
-    private ISysUserService sysUserService;
-
-    //获取排班表
-    private List<SysSchedule> getSysScheduleList(SysSchedule sysSchedule){
-        LoginUser loginUser = SecurityUtils.getLoginUser();
-        Long userId = loginUser.getUserId();
-        Long deptId = loginUser.getDeptId();
-
-        List<SysSchedule> list = null;
-
-        if(deptId == 100L){
-            list = sysScheduleService.selectSysScheduleList(sysSchedule);
-        }
-        else if(deptId == 101L){
-            list = sysScheduleService.selectSysScheduleListByUserId(userId);
-        }
-        else if(deptId == 102L){
-            list = new ArrayList<>();
-            Stack<Long> stack = new Stack<>();
-            stack.push(userId);
-            while (!stack.isEmpty()){
-                SysUser user = sysUserService.selectUserById(stack.pop());
-                if(user.getDeptId() == 102L){
-                    List<SysRelationship> sysRelationships = sysRelationshipService.selectSysRelationshipListBySupervisorId(userId);
-                    for(SysRelationship relationship: sysRelationships){
-                        stack.push(relationship.getConsultantId());
-                    }
-                }
-                list.addAll(sysScheduleService.selectSysScheduleListByUserId(user.getUserId()));
-            }
-        }
-
-        return list;
-    }
-
-    /**
-     * 获取当前时间
-     */
-    @ApiOperation("获取当前时间")
-    @PreAuthorize("@ss.hasPermi('system:schedule:curtime')")
-    @GetMapping("/curtime")
-    private Date getCurTime(){
-        return new Date();
-    }
-
-    /**
-     * 获取当前年份
-     */
-    @ApiOperation("获取当前年份")
-    @PreAuthorize("@ss.hasPermi('system:schedule:curyear')")
-    @GetMapping("/curyear")
-    private Integer getCurTYear(){
-        return Calendar.getInstance().get(Calendar.YEAR);
-    }
-
-    /**
-     * 获取当前月份
-     */
-    @ApiOperation("获取当前月份")
-    @PreAuthorize("@ss.hasPermi('system:schedule:curmonth')")
-    @GetMapping("/curmonth")
-    private Integer getCurTMonth(){
-        return Calendar.getInstance().get(Calendar.MONTH);
-    }
-
-    /**
-     * 获取当前日
-     */
-    @ApiOperation("获取当前日")
-    @PreAuthorize("@ss.hasPermi('system:schedule:curday')")
-    @GetMapping("/curday")
-    private Integer getCurTDay(){
-        return Calendar.getInstance().get(Calendar.DATE);
-    }
-
-    /**
-     * 获取当前星期几
-     */
-    @ApiOperation("获取当前月份")
-    @PreAuthorize("@ss.hasPermi('system:schedule:curweekday')")
-    @GetMapping("/curweekday")
-    private Integer getCurTWeekday(){
-        return Calendar.getInstance().get(Calendar.DAY_OF_WEEK);
-    }
-
-    /**
-     * 依据日期获取排班人员
-     */
-    @ApiOperation("依据日期获取排班人员")
-    @PreAuthorize("@ss.hasPermi('system:schedule:list_by_date')")
-    @GetMapping("/list_by_date")
-    private TableDataInfo getSysScheduleListByDate(SysSchedule sysSchedule){
-        List<SysSchedule> list = sysScheduleService.selectSysScheduleByDate(sysSchedule);
-        return getDataTable(list);
-    }
-
     /**
      * 查询排班表管理列表
      */
-    @ApiOperation("查询排班表管理列表")
     @PreAuthorize("@ss.hasPermi('system:schedule:list')")
     @GetMapping("/list")
     public TableDataInfo list(SysSchedule sysSchedule)
     {
         startPage();
-        List<SysSchedule> list = getSysScheduleList(sysSchedule);
+        List<SysSchedule> list = sysScheduleService.selectSysScheduleList(sysSchedule);
+        return getDataTable(list);
+    }
+
+    /**
+     * 最高权限查询排班表管理列表
+     */
+    @GetMapping("/su_list")
+    public TableDataInfo suList(SysSchedule sysSchedule)
+    {
+        startPage();
+        List<SysSchedule> list = sysScheduleService.selectSysScheduleList(sysSchedule);
         return getDataTable(list);
     }
 
     /**
      * 导出排班表管理列表
      */
-    @ApiOperation("导出排班表管理列表")
     @PreAuthorize("@ss.hasPermi('system:schedule:export')")
     @Log(title = "排班表管理", businessType = BusinessType.EXPORT)
     @PostMapping("/export")
     public void export(HttpServletResponse response, SysSchedule sysSchedule)
     {
-        List<SysSchedule> list = getSysScheduleList(sysSchedule);
+        List<SysSchedule> list = sysScheduleService.selectSysScheduleList(sysSchedule);
         ExcelUtil<SysSchedule> util = new ExcelUtil<SysSchedule>(SysSchedule.class);
         util.exportExcel(response, list, "排班表管理数据");
     }
@@ -168,7 +73,6 @@ public class SysScheduleController extends BaseController
     /**
      * 获取排班表管理详细信息
      */
-    @ApiOperation("获取排班表管理详细信息")
     @PreAuthorize("@ss.hasPermi('system:schedule:query')")
     @GetMapping(value = "/{id}")
     public AjaxResult getInfo(@PathVariable("id") Long id)
@@ -179,7 +83,6 @@ public class SysScheduleController extends BaseController
     /**
      * 新增排班表管理
      */
-    @ApiOperation("新增排班表管理")
     @PreAuthorize("@ss.hasPermi('system:schedule:add')")
     @Log(title = "排班表管理", businessType = BusinessType.INSERT)
     @PostMapping
@@ -191,7 +94,6 @@ public class SysScheduleController extends BaseController
     /**
      * 修改排班表管理
      */
-    @ApiOperation("修改排班表管理")
     @PreAuthorize("@ss.hasPermi('system:schedule:edit')")
     @Log(title = "排班表管理", businessType = BusinessType.UPDATE)
     @PutMapping
@@ -203,7 +105,6 @@ public class SysScheduleController extends BaseController
     /**
      * 删除排班表管理
      */
-    @ApiOperation("删除排班表管理")
     @PreAuthorize("@ss.hasPermi('system:schedule:remove')")
     @Log(title = "排班表管理", businessType = BusinessType.DELETE)
 	@DeleteMapping("/{ids}")

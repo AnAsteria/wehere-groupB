@@ -9,6 +9,15 @@ export function listSchedule(query) {
   })
 }
 
+// 最高权限查询排班表管理列表
+export function suListSchedule(query) {
+  return request({
+    url: '/system/schedule/su_list',
+    method: 'get',
+    params: query
+  })
+}
+
 // 查询排班表管理详细
 export function getSchedule(id) {
   return request({

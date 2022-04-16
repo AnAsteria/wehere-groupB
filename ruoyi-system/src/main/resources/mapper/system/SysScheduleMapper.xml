@@ -6,40 +6,19 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     
     <resultMap type="SysSchedule" id="SysScheduleResult">
         <result property="id"    column="id"    />
-        <result property="userId"    column="user_id"    />
-        <result property="createTime"    column="create_time"    />
-        <result property="year"    column="year"    />
-        <result property="month"    column="month"    />
-        <result property="day"    column="day"    />
+        <result property="userName"    column="user_name"    />
+        <result property="time"    column="time"    />
     </resultMap>
 
     <sql id="selectSysScheduleVo">
-        select id, user_id, create_time, year, month, day from sys_schedule
+        select id, user_name, time from sys_schedule
     </sql>
 
     <select id="selectSysScheduleList" parameterType="SysSchedule" resultMap="SysScheduleResult">
         <include refid="selectSysScheduleVo"/>
         <where>  
-            <if test="userId != null "> and user_id = #{userId}</if>
-            <if test="year != null "> and year = #{year}</if>
-            <if test="month != null "> and month = #{month}</if>
-            <if test="day != null "> and day = #{day}</if>
-        </where>
-    </select>
-
-    <select id="selectSysScheduleByDate" parameterType="SysSchedule" resultMap="SysScheduleResult">
-        <include refid="selectSysScheduleVo"/>
-        <where>
-            <if test="year != null "> and year = #{year}</if>
-            <if test="month != null "> and month = #{month}</if>
-            <if test="day != null "> and day = #{day}</if>
-        </where>
-    </select>
-
-    <select id="selectSysScheduleListByUserId" parameterType="Long" resultMap="SysScheduleResult">
-        <include refid="selectSysScheduleVo"/>
-        <where>
-            <if test="userId != null "> and user_id = #{userId}</if>
+            <if test="userName != null  and userName != ''"> and user_name like concat('%', #{userName}, '%')</if>
+            <if test="time != null "> and time = #{time}</if>
         </where>
     </select>
     
@@ -51,29 +30,20 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     <insert id="insertSysSchedule" parameterType="SysSchedule" useGeneratedKeys="true" keyProperty="id">
         insert into sys_schedule
         <trim prefix="(" suffix=")" suffixOverrides=",">
-            <if test="userId != null">user_id,</if>
-            <if test="createTime != null">create_time,</if>
-            <if test="year != null">year,</if>
-            <if test="month != null">month,</if>
-            <if test="day != null">day,</if>
+            <if test="userName != null and userName != ''">user_name,</if>
+            <if test="time != null">time,</if>
          </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
-            <if test="userId != null">#{userId},</if>
-            <if test="createTime != null">#{createTime},</if>
-            <if test="year != null">#{year},</if>
-            <if test="month != null">#{month},</if>
-            <if test="day != null">#{day},</if>
+            <if test="userName != null and userName != ''">#{userName},</if>
+            <if test="time != null">#{time},</if>
          </trim>
     </insert>
 
     <update id="updateSysSchedule" parameterType="SysSchedule">
         update sys_schedule
         <trim prefix="SET" suffixOverrides=",">
-            <if test="userId != null">user_id = #{userId},</if>
-            <if test="createTime != null">create_time = #{createTime},</if>
-            <if test="year != null">year = #{year},</if>
-            <if test="month != null">month = #{month},</if>
-            <if test="day != null">day = #{day},</if>
+            <if test="userName != null and userName != ''">user_name = #{userName},</if>
+            <if test="time != null">time = #{time},</if>
         </trim>
         where id = #{id}
     </update>

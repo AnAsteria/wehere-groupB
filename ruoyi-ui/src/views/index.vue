@@ -28,11 +28,11 @@
         <p>
           <b>当前版本:</b> <span>v0.3</span>
         </p>
-        
-        
+
+
       </el-col>
 
-      
+
     </el-row>
     <el-divider />
     <el-row :gutter="20">
@@ -49,19 +49,19 @@
                 >https://github.com/ECNU22Team9/wehere-groupB</el-link
               >
             </p>
-            
+
             <p>
               <i class="el-icon-chat-dot-round"></i> 小组：<a
                 href="javascript:;"
                 >Group 09(A, B)</a
               >
             </p>
-            
+
           </div>
         </el-card>
       </el-col>
-      
-      
+
+
     </el-row>
   </div>
 </template>
