@@ -23,6 +23,19 @@
           <el-dropdown-item  @click.native="trtcCalling('audio')">语音通话</el-dropdown-item>
         </el-dropdown-menu>
       </el-dropdown>
+<span v-html="'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'"> </span>
+<span v-html="'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'"> </span>
+<span v-html="'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'"> </span>
+<span v-html="'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'"> </span>
+<span v-html="'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'"> </span>
+      <el-button
+          type="primary"
+          plain
+          size="mini"
+          @click="handleAdd"
+          v-hasPermi="['system:record:add']"
+        >结束会话</el-button>
+
       <div class="group-live-icon-box" v-if="currentConversationType === TIM.TYPES.CONV_GROUP && groupProfile.type !== 'AVChatRoom'" title="群直播" @click="groupLive">
         <i class="group-live-icon"></i>
         <i class="group-live-icon-hover"></i>
@@ -111,12 +124,47 @@
         <span class="calling-btn" @click="callingHandler">确定</span>
       </div>
     </div>
+
+    <!-- 添加或修改咨询管理对话框 -->
+    <el-dialog :title="title" :visible.sync="open" width="500px" append-to-body>
+      <el-form ref="newform" :model="newform" :rules="rules" label-width="100px">
+        <el-form-item label="被咨询者id" prop="toId">
+          <el-input v-model="newform.toId" placeholder="请输入被咨询者id" />
+        </el-form-item>
+        <el-form-item label="咨询者id
+" prop="fromId">
+          <el-input v-model="newform.fromId" placeholder="请输入咨询者id
+" />
+        </el-form-item>
+        
+        <!--<el-form-item label="咨询记录的保存路径" prop="recordPath">
+          <el-input v-model="form.recordPath" placeholder="请输入咨询记录的保存路径" />
+        </el-form-item>
+        <el-form-item label="记录的数量" prop="counts">
+          <el-input v-model="form.counts" placeholder="请输入记录的数量" />
+        </el-form-item>-->
+        <el-form-item label="咨询记录的结束时间" prop="endTime">
+          <el-date-picker clearable size="small"
+            v-model="newform.endTime"
+            type="date"
+            value-format="yyyy-MM-dd"
+            placeholder="请选择咨询记录的结束时间">
+          </el-date-picker>
+        </el-form-item>
+      </el-form>
+      <div slot="footer" class="dialog-footer">
+        <el-button type="primary" @click="submitForm">确 定</el-button>
+        <el-button @click="cancel">取 消</el-button>
+      </div>
+    </el-dialog>
   </div>
 </template>
 
 <script>
 import { mapGetters, mapState } from 'vuex'
 import callingMemberList from './trtc-calling/group-member-list'
+import { listRecord, getRecord, delRecord, addRecord, updateRecord } from "@/api/system/record";
+
 import {
   Form,
   FormItem,
@@ -158,6 +206,17 @@ export default {
         data: '',
         description: '',
         extension: ''
+      },
+      newform: {},
+      open: false,
+      title: "",
+      rules: {
+        toId: [
+          { required: true, message: "被咨询者id不能为空", trigger: "blur" }
+        ],
+        fromId: [
+          { required: true, message: "咨询者id不能为空", trigger: "blur" }
+        ],
       },
       rate: 5, // 评分
       suggestion: '', // 建议
@@ -206,6 +265,54 @@ export default {
     this.$refs['text-input'].removeEventListener('paste', this.handlePaste)
   },
   methods: {
+
+    reset() {
+      this.newform = {
+        id: null,
+        toId: null,
+        fromId: null,
+        recordPath: null,
+        counts: null,
+        createTime: null,
+        endTime: null,
+        nickName: null
+      };
+      this.resetForm("form");
+    },
+
+
+    handleAdd() {
+      this.reset();
+      this.open = true;
+      this.title = "是否确定结束会话？";
+    },
+
+    cancel() {
+      this.open = false;
+      this.reset();
+    },
+
+    submitForm() {
+      this.$refs["newform"].validate(valid => {
+        if (valid) {
+          if (this.newform.id != null) {
+            updateRecord(this.newform).then(response => {
+              this.$modal.msgSuccess("修改成功");
+              this.open = false;
+              this.getList();
+            });
+          } else {
+            addRecord(this.newform).then(response => {
+              this.$modal.msgSuccess("会话已结束");
+              this.open = false;
+              //this.getList();
+            });
+          }
+        }
+      });
+    },
+
+
     getList(value) {
       this.callingList = value.map((item) => {
         let obj = JSON.parse(item)

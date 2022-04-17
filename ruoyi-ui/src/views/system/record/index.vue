@@ -10,7 +10,7 @@
           @keyup.enter.native="handleQuery"
         />
       </el-form-item>
-      <span v-html="'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'"> </span>
+      <span v-html="'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'"> </span>
       <el-form-item label="咨询者id
 " prop="fromId">
         <el-input
@@ -22,8 +22,8 @@
           @keyup.enter.native="handleQuery"
         />
       </el-form-item>
-      <span v-html="'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'"> </span>
-      <el-form-item label="咨询记录的保存路径" prop="recordPath">
+      <span v-html="'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'"> </span>
+      <!--<el-form-item label="咨询记录的保存路径" prop="recordPath">
         <el-input
           v-model="queryParams.recordPath"
           placeholder="请输入咨询记录的保存路径"
@@ -41,8 +41,8 @@
           size="small"
           @keyup.enter.native="handleQuery"
         />
-      </el-form-item>
-      <span v-html="'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'"> </span>
+      </el-form-item>-->
+      <span v-html="'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'"> </span>
       <el-form-item label="咨询记录的结束时间" prop="endTime">
         <el-date-picker clearable size="small"
           v-model="queryParams.endTime"
@@ -51,7 +51,7 @@
           placeholder="请选择咨询记录的结束时间">
         </el-date-picker>
       </el-form-item>
-      <span v-html="'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'"> </span>
+      <span v-html="'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'"> </span>
       <el-form-item>
         <el-button type="primary" icon="el-icon-search" size="mini" @click="handleQuery">搜索</el-button>
         <el-button icon="el-icon-refresh" size="mini" @click="resetQuery">重置</el-button>
@@ -110,9 +110,9 @@
       <el-table-column label="被咨询者id" align="center" prop="toId" />
       <el-table-column label="咨询者id
 " align="center" prop="fromId" />
-      <el-table-column label="咨询者姓名" align="center" prop="userName" />
-      <el-table-column label="咨询记录的保存路径" align="center" prop="recordPath" />
-      <el-table-column label="记录的数量" align="center" prop="counts" />
+      <el-table-column label="被咨询者姓名" align="center" prop="nickName" />
+      <!--<el-table-column label="咨询记录的保存路径" align="center" prop="recordPath" />
+      <el-table-column label="记录的数量" align="center" prop="counts" />-->
       <el-table-column label="咨询记录的结束时间" align="center" prop="endTime" width="180">
         <template slot-scope="scope">
           <span>{{ parseTime(scope.row.endTime, '{y}-{m}-{d}') }}</span>
@@ -157,15 +157,13 @@
           <el-input v-model="form.fromId" placeholder="请输入咨询者id
 " />
         </el-form-item>
-        <el-form-item label="咨询者姓名" prop="userName">
-          <el-input v-model="form.userName" placeholder="请输入咨询者姓名" />
-        </el-form-item>
-        <el-form-item label="咨询记录的保存路径" prop="recordPath">
+        
+        <!--<el-form-item label="咨询记录的保存路径" prop="recordPath">
           <el-input v-model="form.recordPath" placeholder="请输入咨询记录的保存路径" />
         </el-form-item>
         <el-form-item label="记录的数量" prop="counts">
           <el-input v-model="form.counts" placeholder="请输入记录的数量" />
-        </el-form-item>
+        </el-form-item>-->
         <el-form-item label="咨询记录的结束时间" prop="endTime">
           <el-date-picker clearable size="small"
             v-model="form.endTime"
@@ -185,6 +183,7 @@
 
 <script>
 import { listRecord, getRecord, delRecord, addRecord, updateRecord } from "@/api/system/record";
+import { listUser, getUser, delUser, addUser, updateUser, resetUserPwd, changeUserStatus } from "@/api/system/user";
 
 export default {
   name: "Record",
@@ -217,10 +216,12 @@ export default {
         recordPath: null,
         counts: null,
         endTime: null,
-        userName: null
+        nickName: null
       },
       // 表单参数
       form: {},
+      userform: {},
+      temp: null,
       // 表单校验
       rules: {
         toId: [
@@ -234,13 +235,31 @@ export default {
   },
   created() {
     this.getList();
+    this.test();
   },
   methods: {
+
+    test() {
+      getUser(15).then(response => {
+        this.userform = response.data;
+      });
+    },
+
     /** 查询咨询管理列表 */
     getList() {
       this.loading = true;
       listRecord(this.queryParams).then(response => {
         this.recordList = response.rows;
+
+        this.recordList.forEach(obj=>{
+
+          getUser(obj.toId).then(response => {
+          //obj.nickName = response.data.nickName;
+          this.$set(obj,'nickName',response.data.nickName);
+      });      
+          
+        });
+        console.log(this.recordList);
         this.total = response.total;
         this.loading = false;
       });
@@ -260,7 +279,7 @@ export default {
         counts: null,
         createTime: null,
         endTime: null,
-        userName: null
+        nickName: null
       };
       this.resetForm("form");
     },
