@@ -12,7 +12,7 @@ import com.ruoyi.system.service.ISysEvaluationService;
  * 评价系统Service业务层处理
  * 
  * @author Group9
- * @date 2022-04-15
+ * @date 2022-04-16
  */
 @Service
 public class SysEvaluationServiceImpl implements ISysEvaluationService 
@@ -42,17 +42,6 @@ public class SysEvaluationServiceImpl implements ISysEvaluationService
     public List<SysEvaluation> selectSysEvaluationList(SysEvaluation sysEvaluation)
     {
         return sysEvaluationMapper.selectSysEvaluationList(sysEvaluation);
-    }
-
-    /**
-     * 查询指定toid的平均得分
-     *
-     * @param toId 评价系统
-     * @return 结果
-     */
-    @Override
-    public int selectAvgScoreByToId(Long toId){
-        return sysEvaluationMapper.selectAvgScoreByToId(toId);
     }
 
     /**

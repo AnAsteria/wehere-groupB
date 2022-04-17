@@ -7,7 +7,7 @@ import com.ruoyi.system.domain.SysEvaluation;
  * 评价系统Mapper接口
  * 
  * @author Group9
- * @date 2022-04-15
+ * @date 2022-04-16
  */
 public interface SysEvaluationMapper 
 {
@@ -26,14 +26,6 @@ public interface SysEvaluationMapper
      * @return 评价系统集合
      */
     public List<SysEvaluation> selectSysEvaluationList(SysEvaluation sysEvaluation);
-
-    /**
-     * 查询指定toid的平均得分
-     *
-     * @param toId 评价系统
-     * @return 结果
-     */
-    public int selectAvgScoreByToId(Long toId);
 
     /**
      * 新增评价系统
