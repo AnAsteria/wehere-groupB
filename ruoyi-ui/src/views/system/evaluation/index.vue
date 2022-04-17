@@ -82,7 +82,7 @@
 
     <el-table v-loading="loading" :data="evaluationList" @selection-change="handleSelectionChange">
       <el-table-column type="selection" width="55" align="center" />
-      <el-table-column label="主键" align="center" prop="id" />
+      <!--<el-table-column label="主键" align="center" prop="id" />-->
       <el-table-column label="评价者id" align="center" prop="fromId" />
       <el-table-column label="受评者id" align="center" prop="toId" />
       <el-table-column label="得分" align="center" prop="score" />

@@ -245,6 +245,7 @@
             </el-form-item>
           </el-col>
         </el-row>
+        <br />
         <el-row>
           <el-col :span="12">
             <el-form-item label="用户性别">
@@ -356,6 +357,14 @@ export default {
   dicts: ['sys_normal_disable', 'sys_user_sex'],
   components: { Treeselect },
   data() {
+      const checkUserID = (rule, value, callback) => {
+      if (!/^[a-zA-Z][a-zA-Z0-9_]{3,23}$/.test(value)) {
+        callback(new Error('不合法（字母开头+字母/数字，长度4-24)'))
+      } else {
+        callback()
+      }
+    }
+
     return {
       // 遮罩层
       loading: true,
@@ -431,7 +440,8 @@ export default {
       rules: {
         userName: [
           { required: true, message: "用户名称不能为空", trigger: "blur" },
-          { min: 2, max: 20, message: '用户名称长度必须介于 2 和 20 之间', trigger: 'blur' }
+          { min: 2, max: 20, message: '用户名称长度必须介于 2 和 20 之间', trigger: 'blur' },
+          { validator: checkUserID, trigger: 'blur' }
         ],
         nickName: [
           { required: true, message: "用户昵称不能为空", trigger: "blur" }

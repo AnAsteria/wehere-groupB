@@ -72,8 +72,7 @@
 
     <el-table v-loading="loading" :data="scheduleList" @selection-change="handleSelectionChange">
       <el-table-column type="selection" width="55" align="center" />
-      <el-table-column label="主键
-主键" align="center" prop="id" />
+      <!--<el-table-column label="主键" align="center" prop="id" />-->
       <el-table-column label="用户名" align="center" prop="userName" />
       <el-table-column label="排班日期" align="center" prop="time" width="180">
         <template slot-scope="scope">

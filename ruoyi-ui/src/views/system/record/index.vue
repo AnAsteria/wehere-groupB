@@ -106,10 +106,11 @@
 
     <el-table v-loading="loading" :data="recordList" @selection-change="handleSelectionChange">
       <el-table-column type="selection" width="55" align="center" />
-      <el-table-column label="主键" align="center" prop="id" />
+      <!--<el-table-column label="主键" align="center" prop="id" />-->
       <el-table-column label="被咨询者id" align="center" prop="toId" />
       <el-table-column label="咨询者id
 " align="center" prop="fromId" />
+      <el-table-column label="咨询者姓名" align="center" prop="userName" />
       <el-table-column label="咨询记录的保存路径" align="center" prop="recordPath" />
       <el-table-column label="记录的数量" align="center" prop="counts" />
       <el-table-column label="咨询记录的结束时间" align="center" prop="endTime" width="180">
@@ -155,6 +156,9 @@
 " prop="fromId">
           <el-input v-model="form.fromId" placeholder="请输入咨询者id
 " />
+        </el-form-item>
+        <el-form-item label="咨询者姓名" prop="userName">
+          <el-input v-model="form.userName" placeholder="请输入咨询者姓名" />
         </el-form-item>
         <el-form-item label="咨询记录的保存路径" prop="recordPath">
           <el-input v-model="form.recordPath" placeholder="请输入咨询记录的保存路径" />
@@ -212,7 +216,8 @@ export default {
         fromId: null,
         recordPath: null,
         counts: null,
-        endTime: null
+        endTime: null,
+        userName: null
       },
       // 表单参数
       form: {},
@@ -254,7 +259,8 @@ export default {
         recordPath: null,
         counts: null,
         createTime: null,
-        endTime: null
+        endTime: null,
+        userName: null
       };
       this.resetForm("form");
     },
