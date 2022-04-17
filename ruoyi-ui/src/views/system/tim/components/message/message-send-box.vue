@@ -672,7 +672,7 @@ export default {
 }
 
 .send-header-bar i:hover {
-  color: $black;
+  color: #000000;
 }
 
 textarea {
@@ -701,7 +701,7 @@ textarea {
   .btn-send {
     cursor: pointer;
     position: absolute;
-    color: $primary;
+    color: #2d8cf0;
     font-size: 30px;
     right: 0;
     bottom: -5px;

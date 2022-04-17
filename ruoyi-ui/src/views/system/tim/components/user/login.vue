@@ -11,7 +11,7 @@
       @keydown.enter.native="submit"
     >
       <!-- Github登录方式 -->
-      <el-form-item prop="userID">
+    <!--  <el-form-item prop="userID">
         <el-select v-model="form.userID" class="user-selector">
           <el-option
             v-for="index in 30"
@@ -20,12 +20,12 @@
             :value="`user${index-1}`"
           ></el-option>
         </el-select>
-      </el-form-item>
+      </el-form-item>-->
       <!-- 线上版本登录方式 -->
-      <!-- <el-form-item prop="userID">
+      <el-form-item prop="userID">
         <el-input v-model="form.userID" placeholder="请输入用户名" type="text" clearable></el-input>
       </el-form-item>
-      <el-form-item prop="password">
+      <!--<el-form-item prop="password">
         <el-input
           v-model="form.password"
           placeholder="请输入密码"
@@ -35,18 +35,24 @@
         ></el-input>
       </el-form-item>-->
     </el-form>
+
     <el-button
       type="primary"
       @click="submit"
       style="width:100%; margin-top: 6px;"
       :loading="loading"
     >登录</el-button>
+
   </div>
 </template>
 
 <script>
 import { Form, FormItem, Select, Option } from 'element-ui'
 import logo from '../../assets/image/logo.png'
+import tim from '../../../../../tim.js'
+import { getUserSig, SDKAppID } from '../../../../../api/im/api/usersig.js'
+import { getUserProfile } from "@/api/system/user"
+
 
 export default {
   name: 'Login',
@@ -55,6 +61,7 @@ export default {
     ElFormItem: FormItem,
     ElSelect: Select,
     ElOption: Option,
+    
   },
   data() {
     const checkUserID = (rule, value, callback) => {
@@ -79,10 +86,29 @@ export default {
       },
       logo: logo,
       registerVisible: false,
-      loading: false
+      loading: false,
+      user:{}
     }
   },
+  created(){
+    this.getUser()
+  },
+  watch:{
+    user(){
+      this.$nextTick( ()=>{
+        this.form.userID=this.user.userName
+        console.log(this.user.userName)
+        this.submit()
+      } )
+    }
+  },
+  
   methods: {
+    getUser(){
+      getUserProfile().then(response => {
+        this.user = response.data;
+      })
+    },
     submit() {
       this.$refs['login'].validate(valid => {
         if (valid) {
@@ -92,33 +118,41 @@ export default {
     },
     login() {
       this.loading = true
-      this.tim
-        .login({
-          userID: this.form.userID,
-          userSig: window.genTestUserSig(this.form.userID).userSig
-        })
-        .then(() => {
-          this.loading = false
-          this.$store.commit('toggleIsLogin', true)
-          this.$store.commit('startComputeCurrent')
-          this.$store.commit('showMessage', { type: 'success', message: '登录成功' })
-          this.$store.commit({
-            type: 'GET_USER_INFO',
-            userID: this.form.userID,
-            userSig: window.genTestUserSig(this.form.userID).userSig,
-            sdkAppID: window.genTestUserSig('').SDKAppID
-          })
-          this.$store.commit('showMessage', {
-            type: 'success',
-            message: '登录成功'
-          })
-        })
-        .catch(error => {
-          this.loading = false
-          this.$store.commit('showMessage', {
-            message: '登录失败：' + error.message,
-            type: 'error'
-          })
+      getUserSig(this.form.userID)
+        .then((res) => {
+          console.log(res)
+          return res["im-user-sig"]
+        }).then((userSig) => {
+          console.log("UserSig", userSig)
+
+          tim
+            .login({
+              userID: this.form.userID,
+              userSig: userSig
+            })
+            .then(() => {
+              this.loading = false
+              this.$store.commit('toggleIsLogin', true)
+              this.$store.commit('startComputeCurrent')
+              this.$store.commit('showMessage', { type: 'success', message: '登录成功' })
+              this.$store.commit({
+                type: 'GET_USER_INFO',
+                userID: this.form.userID,
+                userSig: userSig,
+                sdkAppID: SDKAppID
+              })
+              this.$store.commit('showMessage', {
+                type: 'success',
+                message: '登录成功'
+              })
+            })
+            .catch(error => {
+              this.loading = false
+              this.$store.commit('showMessage', {
+                message: '登录失败：' + error.message,
+                type: 'error'
+              })
+            })
         })
     },
   }
@@ -131,8 +165,8 @@ export default {
   align-items center
   flex-direction column
   width 450px
-  background $white
-  color $black
+  background #ffffff
+  color #000000
   border-radius 5px
   box-shadow: 0 11px 20px 0 rgba(0,0,0,0.3)
   .row-div
@@ -161,8 +195,8 @@ export default {
   flex-direction: column;
   width: 400px;
   padding: 20px 80px 50px;
-  background: $white;
-  color: $black;
+  background: #ffffff;
+  color: #000000;
   border-radius: 5px;
   box-shadow: 0 11px 20px 0 rgba(0, 0, 0, 0.3);
 

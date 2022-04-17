@@ -63,4 +63,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             #{id}
         </foreach>
     </delete>
+
+    <delete id="deleteImAccountByUserId" parameterType="Long">
+        delete from im_account where user_id = #{UserId}
+    </delete>
 </mapper>

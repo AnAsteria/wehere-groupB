@@ -90,7 +90,7 @@ export default {
   .header
     height 50px
     padding 10px 16px 10px 20px
-    border-bottom 1px solid $border-base
+    border-bottom 1px solid #e7e7e7
     .member-count
       display inline-block
       max-width 130px
@@ -106,7 +106,7 @@ export default {
       cursor pointer
       float right
       &:hover
-        color $light-primary
+        color #5cadff
   .scroll-content
     max-height: 250px;
     overflow-y: scroll;
@@ -125,7 +125,7 @@ export default {
       align-content center
       flex-direction: column;
       text-align: center;
-      color: $black;
+      color: #000000;
       cursor: pointer;
       margin: 0 20px 10px 0;
       padding: 10px 0 0 0;
@@ -139,7 +139,7 @@ export default {
         text-align center
   .more
     padding 0 20px
-    border-bottom 1px solid $border-base
+    border-bottom 1px solid #e7e7e7
 
 // .add-group-member {
 //   cursor: pointer;

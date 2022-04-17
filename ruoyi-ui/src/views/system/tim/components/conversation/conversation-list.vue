@@ -152,15 +152,15 @@ export default {
   .header-bar
     flex-shrink 0
     height 50px
-    border-bottom 1px solid $background-deep-dark
+    border-bottom 1px solid #303841
     padding 10px 10px 10px 20px
     button
       float right
       display: inline-block;
       cursor: pointer;
-      background $background-deep-dark
+      background #303841
       border: none
-      color: $font-dark;
+      color: #76828c;
       box-sizing: border-box;
       transition: .3s;
       -moz-user-select: none;
@@ -177,10 +177,10 @@ export default {
       border-radius: 50%
       outline 0
       &:hover
-        // background $light-primary
+        // background #5cadff
         // color $white
         transform: rotate(360deg);
-        color $light-primary
+        color #5cadff
   .scroll-container
     overflow-y scroll
     flex 1

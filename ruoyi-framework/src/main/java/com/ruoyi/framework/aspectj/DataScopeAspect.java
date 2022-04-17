@@ -55,7 +55,7 @@ public class DataScopeAspect
     public void doBefore(JoinPoint point, DataScope controllerDataScope) throws Throwable
     {
         clearDataScope(point);
-        handleDataScope(point, controllerDataScope);
+        //handleDataScope(point, controllerDataScope);
     }
 
     protected void handleDataScope(final JoinPoint joinPoint, DataScope controllerDataScope)

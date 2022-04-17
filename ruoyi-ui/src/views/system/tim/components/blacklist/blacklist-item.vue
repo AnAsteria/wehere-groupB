@@ -42,7 +42,7 @@ export default {
 .item {
   padding-left: 20px;
   width: 100%;
-  color: $white;
+  color: #ffffff;
   box-sizing: border-box;
   word-wrap: break-word;
   overflow: hidden;
@@ -57,7 +57,7 @@ export default {
   justify-content flex-start
   position relative
   &:hover {
-    background-color $background
+    background-color #404953
   }
   .cancel-btn {
     position absolute

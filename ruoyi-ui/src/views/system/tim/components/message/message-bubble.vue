@@ -208,7 +208,7 @@
     span
       white-space pre-wrap
       margin 0
-      text-shadow $regular 0 0 0.05em
+      text-shadow #495060 0 0 0.05em
     img
       vertical-align bottom
     &::before
@@ -221,25 +221,25 @@
       font-family 'tim' !important
       font-size 24px // 32px 在mac上会模糊 24px正常 , window 24px模糊 28px 32px正常  36px windows mac 基本一致，但是太大
   .message-received
-    background-color $white
+    background-color #ffffff
     margin-left 15px
     border-radius 0 4px 4px 4px
     &::before
       left -10px
       transform scaleX(-1)
-      color $white
+      color #ffffff
     &.new
       transform: scale(0);
       transform-origin: top left;
       animation: bounce 500ms linear both;
   .message-send
-    background-color $light-primary
+    background-color #5cadff
     margin-right 15px
     border-radius 4px 0 4px 4px
-    color $white
+    color #ffffff
     &::before
       right: -10px
-      color $light-primary
+      color #5cadff
     &.new
       transform: scale(0);
       transform-origin: top right;
@@ -265,12 +265,12 @@
     outline-width: 0;
   }
 .group-tip-element-wrapper
-  background $white
+  background #ffffff
   padding 4px 15px
   border-radius 3px
-  color $secondary
+  color #a5b5c1
   font-size 12px
-  // text-shadow $secondary 0 0 0.05em
+  // text-shadow #a5b5c1 0 0 0.05em
 .edit-button
   padding-top 4px
   height 20px

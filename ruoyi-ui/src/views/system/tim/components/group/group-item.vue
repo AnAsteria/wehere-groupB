@@ -51,7 +51,7 @@ export default {
     overflow hidden
     transition .2s
     &:hover
-      background-color $background
+      background-color #404953
     .avatar
       width 30px
       height 30px
@@ -60,6 +60,6 @@ export default {
       flex-shrink 0
     .group-name
       flex 1
-      color $font-light
+      color #f7f7f8
       line-height 30px
 </style>

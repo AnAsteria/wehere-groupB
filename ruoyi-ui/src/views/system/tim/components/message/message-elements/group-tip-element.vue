@@ -74,10 +74,10 @@
 
 <style lang="stylus" scoped>
 .group-tip-element-wrapper
-  background $white
+  background #ffffff
   padding 4px 15px
   border-radius 3px
-  color $secondary
+  color  #a5b5c1
   font-size 12px
-  // text-shadow $secondary 0 0 0.05em
+  // text-shadow  #a5b5c1 0 0 0.05em
 </style>

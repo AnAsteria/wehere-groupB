@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.system.mapper.VisitorMapper">
+    
+    <resultMap type="Visitor" id="VisitorResult">
+        <result property="visitorId"    column="visitor_id"    />
+        <result property="visitName"    column="visit_name"    />
+        <result property="visitorTelephone"    column="visitor_telephone"    />
+        <result property="emergencyContactName"    column="emergency_contact_name"    />
+        <result property="emergencyContactTelephone"    column="emergency_contact_telephone"    />
+        <result property="limitsOfAuthority"    column="limits_of_authority"    />
+    </resultMap>
+
+    <sql id="selectVisitorVo">
+        select visitor_id, visit_name, visitor_telephone, emergency_contact_name, emergency_contact_telephone, limits_of_authority from visitor
+    </sql>
+
+    <select id="selectVisitorList" parameterType="Visitor" resultMap="VisitorResult">
+        <include refid="selectVisitorVo"/>
+        <where>  
+            <if test="visitorId != null  and visitorId != ''"> and visitor_id = #{visitorId}</if>
+            <if test="visitName != null  and visitName != ''"> and visit_name like concat('%', #{visitName}, '%')</if>
+            <if test="visitorTelephone != null  and visitorTelephone != ''"> and visitor_telephone = #{visitorTelephone}</if>
+            <if test="emergencyContactName != null  and emergencyContactName != ''"> and emergency_contact_name like concat('%', #{emergencyContactName}, '%')</if>
+            <if test="emergencyContactTelephone != null  and emergencyContactTelephone != ''"> and emergency_contact_telephone = #{emergencyContactTelephone}</if>
+            <if test="limitsOfAuthority != null  and limitsOfAuthority != ''"> and limits_of_authority = #{limitsOfAuthority}</if>
+        </where>
+    </select>
+    
+    <select id="selectVisitorByVisitorId" parameterType="String" resultMap="VisitorResult">
+        <include refid="selectVisitorVo"/>
+        where visitor_id = #{visitorId}
+    </select>
+        
+    <insert id="insertVisitor" parameterType="Visitor">
+        insert into visitor
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="visitorId != null">visitor_id,</if>
+            <if test="visitName != null and visitName != ''">visit_name,</if>
+            <if test="visitorTelephone != null and visitorTelephone != ''">visitor_telephone,</if>
+            <if test="emergencyContactName != null and emergencyContactName != ''">emergency_contact_name,</if>
+            <if test="emergencyContactTelephone != null and emergencyContactTelephone != ''">emergency_contact_telephone,</if>
+            <if test="limitsOfAuthority != null and limitsOfAuthority != ''">limits_of_authority,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="visitorId != null">#{visitorId},</if>
+            <if test="visitName != null and visitName != ''">#{visitName},</if>
+            <if test="visitorTelephone != null and visitorTelephone != ''">#{visitorTelephone},</if>
+            <if test="emergencyContactName != null and emergencyContactName != ''">#{emergencyContactName},</if>
+            <if test="emergencyContactTelephone != null and emergencyContactTelephone != ''">#{emergencyContactTelephone},</if>
+            <if test="limitsOfAuthority != null and limitsOfAuthority != ''">#{limitsOfAuthority},</if>
+         </trim>
+    </insert>
+
+    <update id="updateVisitor" parameterType="Visitor">
+        update visitor
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="visitName != null and visitName != ''">visit_name = #{visitName},</if>
+            <if test="visitorTelephone != null and visitorTelephone != ''">visitor_telephone = #{visitorTelephone},</if>
+            <if test="emergencyContactName != null and emergencyContactName != ''">emergency_contact_name = #{emergencyContactName},</if>
+            <if test="emergencyContactTelephone != null and emergencyContactTelephone != ''">emergency_contact_telephone = #{emergencyContactTelephone},</if>
+            <if test="limitsOfAuthority != null and limitsOfAuthority != ''">limits_of_authority = #{limitsOfAuthority},</if>
+        </trim>
+        where visitor_id = #{visitorId}
+    </update>
+
+    <delete id="deleteVisitorByVisitorId" parameterType="String">
+        delete from visitor where visitor_id = #{visitorId}
+    </delete>
+
+    <delete id="deleteVisitorByVisitorIds" parameterType="String">
+        delete from visitor where visitor_id in 
+        <foreach item="visitorId" collection="array" open="(" separator="," close=")">
+            #{visitorId}
+        </foreach>
+    </delete>
+</mapper>

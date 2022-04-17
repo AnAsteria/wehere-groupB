@@ -35,7 +35,7 @@ export default {
   },
   data() {
     return {
-      title: '若依管理系统',
+      title: '社会心理咨询服务',
       logo: logoImg
     }
   }

@@ -4,6 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 import javax.validation.Validator;
+
+import com.ruoyi.system.domain.ImAccount;
+import com.ruoyi.system.mapper.*;
+import com.ruoyi.system.service.IImAccountService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,11 +26,6 @@ import com.ruoyi.common.utils.spring.SpringUtils;
 import com.ruoyi.system.domain.SysPost;
 import com.ruoyi.system.domain.SysUserPost;
 import com.ruoyi.system.domain.SysUserRole;
-import com.ruoyi.system.mapper.SysPostMapper;
-import com.ruoyi.system.mapper.SysRoleMapper;
-import com.ruoyi.system.mapper.SysUserMapper;
-import com.ruoyi.system.mapper.SysUserPostMapper;
-import com.ruoyi.system.mapper.SysUserRoleMapper;
 import com.ruoyi.system.service.ISysConfigService;
 import com.ruoyi.system.service.ISysUserService;
 
@@ -61,6 +60,12 @@ public class SysUserServiceImpl implements ISysUserService
     @Autowired
     protected Validator validator;
 
+    @Autowired
+    private ImAccountMapper imAccountMapper;
+
+    @Autowired
+    private IImAccountService imAccountService;
+
     /**
      * 根据条件分页查询用户列表
      * 
@@ -72,6 +77,18 @@ public class SysUserServiceImpl implements ISysUserService
     public List<SysUser> selectUserList(SysUser user)
     {
         return userMapper.selectUserList(user);
+    }
+
+    /**
+     * 根据部门查询用户列表
+     *
+     * @param deptId
+     * @return 用户信息集合信息
+     */
+    @Override
+    public List<SysUser> selectUserListByDeptId(Integer deptId)
+    {
+        return userMapper.selectUserListByDeptId(deptId);
     }
 
     /**
@@ -261,6 +278,8 @@ public class SysUserServiceImpl implements ISysUserService
         insertUserPost(user);
         // 新增用户与角色管理
         insertUserRole(user);
+        // 新增用户与IM账户关联
+        insertUserIMAccount(user, "normal");
         return rows;
     }
 
@@ -295,6 +314,11 @@ public class SysUserServiceImpl implements ISysUserService
         userPostMapper.deleteUserPostByUserId(userId);
         // 新增用户与岗位管理
         insertUserPost(user);
+        // 删除用户与IM账户关联
+        //imAccountMapper.deleteImAccountByUserId(userId);
+        // 新增用户与IM账户关联
+        //insertUserIMAccount(user, "normal");
+
         return userMapper.updateUser(user);
     }
 
@@ -372,6 +396,20 @@ public class SysUserServiceImpl implements ISysUserService
     public int resetUserPwd(String userName, String password)
     {
         return userMapper.resetUserPwd(userName, password);
+    }
+
+    /**
+     * 新增用户IM账户关系信息
+     *
+     * @param user 用户对象
+     */
+    public void insertUserIMAccount(SysUser user, String IMAccountType)
+    {
+        imAccountService.insertImAccount(new ImAccount(){{
+            setUserId(user.getUserId());
+            setImAccountName(user.getUserName());
+            setImAccountType(IMAccountType);
+        }});
     }
 
     /**

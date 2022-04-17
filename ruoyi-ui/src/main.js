@@ -14,6 +14,19 @@ import directive from './directive' // directive
 import plugins from './plugins' // plugins
 import { download } from '@/utils/request'
 
+import tim from './tim'
+import TIM from 'tim-js-sdk/tim-js-friendship'
+import { MessageBox, Row, Col, Button, Input, Loading, Dialog, Dropdown, DropdownMenu, DropdownItem, Checkbox, CheckboxGroup, Divider, Popover, Collapse, CollapseItem, Form, FormItem, Select, Option, Menu, MenuItem, MenuItemGroup, Submenu, Tooltip} from 'element-ui'
+import Avatar from './views/system/tim/components/avatar.vue'
+
+import trtcCalling from './trtc-calling'
+import TRTCCalling from 'trtc-calling-js'
+
+import VueClipboard from 'vue-clipboard2'
+import './assets/icon/iconfont.css'
+import './assets/icon/tim.css'
+import './assets/css/animate.css'
+
 import './assets/icons' // icon
 import './permission' // permission control
 import { getDicts } from "@/api/system/dict/data";
@@ -39,6 +52,10 @@ import VueMeta from 'vue-meta'
 import DictData from '@/components/DictData'
 
 // 全局方法挂载
+window.TRTCCalling = TRTCCalling
+window.trtcCalling = trtcCalling
+window.store = store
+
 Vue.prototype.getDicts = getDicts
 Vue.prototype.getConfigKey = getConfigKey
 Vue.prototype.parseTime = parseTime
@@ -49,6 +66,16 @@ Vue.prototype.selectDictLabels = selectDictLabels
 Vue.prototype.download = download
 Vue.prototype.handleTree = handleTree
 
+Vue.prototype.$bus = new Vue() // event Bus 用于无关系组件间的通信。
+
+Vue.prototype.tim = tim
+Vue.prototype.TIM = TIM
+
+Vue.prototype.$confirm = MessageBox.confirm
+
+Vue.prototype.trtcCalling = trtcCalling
+Vue.prototype.TRTCCalling = TRTCCalling
+
 // 全局组件挂载
 Vue.component('DictTag', DictTag)
 Vue.component('Pagination', Pagination)
@@ -57,6 +84,33 @@ Vue.component('Editor', Editor)
 Vue.component('FileUpload', FileUpload)
 Vue.component('ImageUpload', ImageUpload)
 Vue.component('ImagePreview', ImagePreview)
+
+Vue.use(Button)
+Vue.use(Row)
+Vue.use(Col)
+Vue.use(Input)
+Vue.use(Loading)
+Vue.use(Dialog)
+Vue.use(Dropdown)
+Vue.use(DropdownMenu)
+Vue.use(DropdownItem)
+Vue.use(VueClipboard)
+Vue.use(Checkbox)
+Vue.use(CheckboxGroup)
+Vue.use(Divider)
+Vue.use(Popover)
+Vue.use(Collapse)
+Vue.use(CollapseItem)
+Vue.use(Form)
+Vue.use(FormItem)
+Vue.use(Select)
+Vue.use(Option)
+Vue.use(Menu)
+Vue.use(MenuItem)
+Vue.use(MenuItemGroup)
+Vue.use(Submenu)
+Vue.use(Tooltip)
+Vue.component('avatar', Avatar)
 
 Vue.use(directive)
 Vue.use(plugins)

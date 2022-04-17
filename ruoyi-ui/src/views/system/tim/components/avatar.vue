@@ -48,7 +48,7 @@ export default {
 
 <style lang="stylus" scoped>
 .avatar 
-  background-color $first
+  background-color #a5b5c1
   text-align center
   width 100%
   height 100%
