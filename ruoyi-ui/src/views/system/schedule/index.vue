@@ -1,41 +1,22 @@
 <template>
   <div class="app-container">
     <el-form :model="queryParams" ref="queryForm" :inline="true" v-show="showSearch" label-width="68px">
-      <el-form-item label="值班人员" prop="userId">
+      <el-form-item label="用户名" prop="userName">
         <el-input
-          v-model="queryParams.userId"
-          placeholder="请输入值班人员"
+          v-model="queryParams.userName"
+          placeholder="请输入用户名"
           clearable
           size="small"
           @keyup.enter.native="handleQuery"
         />
       </el-form-item>
-      <el-form-item label="年" prop="year">
-        <el-input
-          v-model="queryParams.year"
-          placeholder="请输入年"
-          clearable
-          size="small"
-          @keyup.enter.native="handleQuery"
-        />
-      </el-form-item>
-      <el-form-item label="月" prop="month">
-        <el-input
-          v-model="queryParams.month"
-          placeholder="请输入月"
-          clearable
-          size="small"
-          @keyup.enter.native="handleQuery"
-        />
-      </el-form-item>
-      <el-form-item label="日" prop="day">
-        <el-input
-          v-model="queryParams.day"
-          placeholder="请输入日"
-          clearable
-          size="small"
-          @keyup.enter.native="handleQuery"
-        />
+      <el-form-item label="排班日期" prop="time">
+        <el-date-picker clearable size="small"
+          v-model="queryParams.time"
+          type="date"
+          value-format="yyyy-MM-dd"
+          placeholder="请选择排班日期">
+        </el-date-picker>
       </el-form-item>
       <el-form-item>
         <el-button type="primary" icon="el-icon-search" size="mini" @click="handleQuery">搜索</el-button>
@@ -91,11 +72,13 @@
 
     <el-table v-loading="loading" :data="scheduleList" @selection-change="handleSelectionChange">
       <el-table-column type="selection" width="55" align="center" />
-      <el-table-column label="主键" align="center" prop="id" />
-      <el-table-column label="值班人员" align="center" prop="userId" />
-      <el-table-column label="年" align="center" prop="year" />
-      <el-table-column label="月" align="center" prop="month" />
-      <el-table-column label="日" align="center" prop="day" />
+      <!--<el-table-column label="主键" align="center" prop="id" />-->
+      <el-table-column label="用户名" align="center" prop="userName" />
+      <el-table-column label="排班日期" align="center" prop="time" width="180">
+        <template slot-scope="scope">
+          <span>{{ parseTime(scope.row.time, '{y}-{m}-{d}') }}</span>
+        </template>
+      </el-table-column>
       <el-table-column label="操作" align="center" class-name="small-padding fixed-width">
         <template slot-scope="scope">
           <el-button
@@ -127,17 +110,16 @@
     <!-- 添加或修改排班表管理对话框 -->
     <el-dialog :title="title" :visible.sync="open" width="500px" append-to-body>
       <el-form ref="form" :model="form" :rules="rules" label-width="80px">
-        <el-form-item label="值班人员" prop="userId">
-          <el-input v-model="form.userId" placeholder="请输入值班人员" />
+        <el-form-item label="用户名" prop="userName">
+          <el-input v-model="form.userName" placeholder="请输入用户名" />
         </el-form-item>
-        <el-form-item label="年" prop="year">
-          <el-input v-model="form.year" placeholder="请输入年" />
-        </el-form-item>
-        <el-form-item label="月" prop="month">
-          <el-input v-model="form.month" placeholder="请输入月" />
-        </el-form-item>
-        <el-form-item label="日" prop="day">
-          <el-input v-model="form.day" placeholder="请输入日" />
+        <el-form-item label="排班日期" prop="time">
+          <el-date-picker clearable size="small"
+            v-model="form.time"
+            type="date"
+            value-format="yyyy-MM-dd"
+            placeholder="请选择排班日期">
+          </el-date-picker>
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
@@ -177,24 +159,19 @@ export default {
       queryParams: {
         pageNum: 1,
         pageSize: 10,
-        userId: null,
-        year: null,
-        month: null,
-        day: null
+        userName: null,
+        time: null
       },
       // 表单参数
       form: {},
       // 表单校验
       rules: {
-        id: [
-          { required: true, message: "主键不能为空", trigger: "blur" }
+        userName: [
+          { required: true, message: "用户名不能为空", trigger: "blur" }
         ],
-        userId: [
-          { required: true, message: "值班人员不能为空", trigger: "blur" }
-        ],
-        createTime: [
-          { required: true, message: "排班表创建时间不能为空", trigger: "blur" }
-        ],
+        time: [
+          { required: true, message: "排班日期不能为空", trigger: "blur" }
+        ]
       }
     };
   },
@@ -220,11 +197,8 @@ export default {
     reset() {
       this.form = {
         id: null,
-        userId: null,
-        createTime: null,
-        year: null,
-        month: null,
-        day: null
+        userName: null,
+        time: null
       };
       this.resetForm("form");
     },

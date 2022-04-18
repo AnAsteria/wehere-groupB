@@ -75,7 +75,7 @@
 
     <el-table v-loading="loading" :data="relationshipList" @selection-change="handleSelectionChange">
       <el-table-column type="selection" width="55" align="center" />
-      <el-table-column label="主键" align="center" prop="id" />
+      <!--<el-table-column label="主键" align="center" prop="id" />-->
       <el-table-column label="咨询师id" align="center" prop="consultantId" />
       <el-table-column label="督导id
 " align="center" prop="supervisorId" />

@@ -73,7 +73,7 @@
 
     <el-table v-loading="loading" :data="IMAccountList" @selection-change="handleSelectionChange">
       <el-table-column type="selection" width="55" align="center" />
-      <el-table-column label="主键" align="center" prop="id" />
+      <!--<el-table-column label="主键" align="center" prop="id" />-->
       <el-table-column label="用户id" align="center" prop="userId" />
       <el-table-column label="im账户名" align="center" prop="imAccountName" />
       <el-table-column label="im账户类型" align="center" prop="imAccountType" />
@@ -129,7 +129,24 @@ import { listIMAccount, getIMAccount, delIMAccount, addIMAccount, updateIMAccoun
 export default {
   name: "IMAccount",
   data() {
+    const checkUserID = (rule, value, callback) => {
+      if (!/^[a-zA-Z][a-zA-Z0-9_]{3,23}$/.test(value)) {
+        callback(new Error('不合法（字母开头+字母/数字，长度4-24)'))
+      } else {
+        callback()
+      }
+    }
+
     return {
+      rules: {
+        imAccountName: [
+          { required: true, message: '请输入 im账户名', trigger: 'blur' },
+          { validator: checkUserID, trigger: 'blur' }
+        ],
+        
+      },
+
+
       // 遮罩层
       loading: true,
       // 选中数组
@@ -157,10 +174,9 @@ export default {
         imAccountType: null
       },
       // 表单参数
-      form: {},
+      form: {}
       // 表单校验
-      rules: {
-      }
+      
     };
   },
   created() {

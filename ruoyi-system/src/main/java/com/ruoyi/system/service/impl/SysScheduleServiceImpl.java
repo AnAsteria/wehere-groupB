@@ -1,6 +1,7 @@
 package com.ruoyi.system.service.impl;
 
 import com.ruoyi.common.utils.DateUtils;
+import com.ruoyi.system.domain.SuSysSchedule;
 import com.ruoyi.system.domain.SysSchedule;
 import com.ruoyi.system.mapper.SysScheduleMapper;
 import com.ruoyi.system.service.ISysScheduleService;
@@ -11,19 +12,19 @@ import java.util.List;
 
 /**
  * 排班表管理Service业务层处理
- * 
+ *
  * @author Group9
  * @date 2022-03-21
  */
 @Service
-public class SysScheduleServiceImpl implements ISysScheduleService 
+public class SysScheduleServiceImpl implements ISysScheduleService
 {
     @Autowired
     private SysScheduleMapper sysScheduleMapper;
 
     /**
      * 查询排班表管理
-     * 
+     *
      * @param id 排班表管理主键
      * @return 排班表管理
      */
@@ -34,21 +35,21 @@ public class SysScheduleServiceImpl implements ISysScheduleService
     }
 
     /**
-     * 依据用户id查询排班表管理
+     * 最高权限查询排班表管理列表
      *
-     * @param userId 排班表管理主键
+     * @param sysSchedule 排班表管理
      * @return 排班表管理
      */
     @Override
-    public List<SysSchedule> selectSysScheduleListByUserId(Long userId)
+    public List<SuSysSchedule> suSelectSysScheduleList(SuSysSchedule sysSchedule)
     {
-        return sysScheduleMapper.selectSysScheduleListByUserId(userId);
+        return sysScheduleMapper.suSelectSysScheduleList(sysSchedule);
     }
 
 
     /**
      * 查询排班表管理列表
-     * 
+     *
      * @param sysSchedule 排班表管理
      * @return 排班表管理
      */
@@ -60,7 +61,7 @@ public class SysScheduleServiceImpl implements ISysScheduleService
 
     /**
      * 新增排班表管理
-     * 
+     *
      * @param sysSchedule 排班表管理
      * @return 结果
      */
@@ -73,7 +74,7 @@ public class SysScheduleServiceImpl implements ISysScheduleService
 
     /**
      * 修改排班表管理
-     * 
+     *
      * @param sysSchedule 排班表管理
      * @return 结果
      */
@@ -85,7 +86,7 @@ public class SysScheduleServiceImpl implements ISysScheduleService
 
     /**
      * 批量删除排班表管理
-     * 
+     *
      * @param ids 需要删除的排班表管理主键
      * @return 结果
      */
@@ -97,7 +98,7 @@ public class SysScheduleServiceImpl implements ISysScheduleService
 
     /**
      * 删除排班表管理信息
-     * 
+     *
      * @param id 排班表管理主键
      * @return 结果
      */
